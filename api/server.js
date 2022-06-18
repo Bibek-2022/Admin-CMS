@@ -8,7 +8,11 @@ const PORT = process.env.PORT || 8000;
 
 // user middleware
 app.use(helmet());
-app.use(morgan("dev"));
+app.use(morgan("tiny"));
+
+app.use(express.json());
+
+//connect to db
 
 app.get("/", (req, res) => {
   res.json({
@@ -16,7 +20,7 @@ app.get("/", (req, res) => {
   });
 });
 app.use((error, req, res) => {
-  console.log(error);
+  console.log(error.message);
   res.status = error.status || 404;
   res.json({
     status: "error",
