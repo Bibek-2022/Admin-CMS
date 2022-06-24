@@ -1,3 +1,23 @@
-### Live Server Test
+21 lines (14 sloc)  378 Bytes
 
-GET http://localhost:8000 
+### live server test 
+
+GET http://localhost:8000
+
+
+## ==================== Admin registration and login
+
+### Admin user register 
+
+POST http://localhost:8000/api/v1/register-login
+Content-Type: application/json
+
+{
+    
+    "lName": "Shrestha",
+    "Dob": "2020-02-20",
+    "phone":"044444444",
+    "email": "asdfasdf@gmail.com",
+    "address": "Sydney",
+    "password": "12345"
+}
