@@ -1,7 +1,18 @@
 import "./App.css";
-
-function App() {
-  return <div>Admin CMS</div>;
-}
+import Login from "./pages/Login";
+import Registration from "./pages/Registration";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+const App = () => {
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/registration" element={<Registration />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+};
 
 export default App;
