@@ -13,12 +13,17 @@ app.use(morgan("tiny"));
 app.use(express.json());
 
 //connect to db
+import { mongoConnect } from "./src/config/dbConfig.js";
+mongoConnect();
 
-app.get("/", (req, res) => {
-  res.json({
-    message: "Its ECommerce API",
+import registerLoginRouter from "./src/routers/register.login.js";
+app.use("/api/v1/register-login", registerLoginRouter),
+  app.get("/", (req, res) => {
+    res.json({
+      message: "Its ECommerce API",
+    });
   });
-});
+
 app.use((error, req, res) => {
   console.log(error.message);
   res.status = error.status || 404;

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const createConnection = () => {
+export const mongoConnect = () => {
   const connectStr = process.env.MONGO_URL;
   try {
     const result = mongoose.connect(connectStr);
