@@ -1,5 +1,7 @@
 import express from "express";
 import { adminRegisterValidation } from "../middlewares/validationMiddleware.js";
+import { hashPassword } from "../helpers/bcryptHelper.js";
+import { createNewAdmin } from "../modules/AdminUser.model.js";
 
 const route = express.Router();
 
@@ -8,7 +10,7 @@ const route = express.Router();
 //     console.log("All the request of the spi will go throug")
 // })
 
-route.post("/", adminRegisterValidation, async (req, res) => {
+route.post("/", adminRegisterValidation, async (req, res, next) => {
   console.log(req.body);
 
   try {
@@ -29,6 +31,7 @@ route.post("/", adminRegisterValidation, async (req, res) => {
       error.status = 200;
       error.message = "Email already exists";
     }
+    next(error);
   }
 });
 

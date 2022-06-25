@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { postAdminUser } from "../helpers/axiosHelper";
+import { toast } from "react-toastify";
 
 export const RegistrationForm = () => {
   const [form, setForm] = useState({});
@@ -16,11 +17,13 @@ export const RegistrationForm = () => {
   };
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    if (form.password !== form.passwordConfirm) {
-      return alert("Passwords do not match");
+
+    if (form.password !== form.confirmPassword) {
+      return toast.error("Passwords do not match");
     }
-    const result = await postAdminUser(form);
-    console.log(result);
+    const { confirmPassword, ...rest } = form;
+    const { status, message } = await postAdminUser(rest);
+    toast[status](message);
   };
 
   return (
@@ -32,7 +35,7 @@ export const RegistrationForm = () => {
         <Form.Control
           onChange={handleOnChange}
           type="text"
-          name="fname"
+          name="fName"
           placeholder="First Name"
           required
         />
@@ -61,7 +64,7 @@ export const RegistrationForm = () => {
         <Form.Control
           onChange={handleOnChange}
           type="date"
-          name="dob"
+          name="Dob"
           placeholder="Date of Birth"
         />
       </Form.Group>
