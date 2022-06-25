@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
+import { postAdminUser } from "../helpers/axiosHelper";
 
 export const RegistrationForm = () => {
   const [form, setForm] = useState({});
@@ -12,10 +14,15 @@ export const RegistrationForm = () => {
       [name]: value,
     });
   };
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
+    if (form.password !== form.passwordConfirm) {
+      return alert("Passwords do not match");
+    }
+    const result = await postAdminUser(form);
+    console.log(result);
   };
+
   return (
     <Form onSubmit={handleOnSubmit}>
       <h3>Registration Form</h3>
@@ -98,6 +105,14 @@ export const RegistrationForm = () => {
       <Button variant="primary" type="submit">
         Register
       </Button>
+      <div className="text-end">
+        Already Registered
+        <Link to="/">
+          {" "}
+          Login <br />
+        </Link>
+        Now
+      </div>
     </Form>
   );
 };
