@@ -3,6 +3,7 @@ import { adminRegisterValidation } from "../middlewares/validationMiddleware.js"
 import { hashPassword } from "../helpers/bcryptHelper.js";
 import { createNewAdmin } from "../modules/AdminUser.model.js";
 import { v4 as uuidv4 } from "uuid";
+import { sendAdminUserVarificationMail } from "../helper/emailHelper.js";
 
 const route = express.Router();
 
@@ -26,6 +27,7 @@ route.post("/", adminRegisterValidation, async (req, res, next) => {
 
     //3. unique url endpoint and sent that to customer
     if (result?._id) {
+      sendAdminUserVarificationMail(result);
       console.log(result);
       return res.json({
         status: "success",
