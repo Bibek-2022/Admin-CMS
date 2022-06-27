@@ -29,12 +29,12 @@ route.post("/", adminRegisterValidation, async (req, res, next) => {
       console.log(result);
       return res.json({
         status: "success",
-        message: "We have created a new admin",
+        message: "We have sent you verification",
       });
     }
     res.json({
       status: "success",
-      message: "We have created a new admin",
+      message: "Unable to create User",
     });
   } catch (error) {
     if (error.message.includes("E11000")) {
