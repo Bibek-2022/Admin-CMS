@@ -7,55 +7,45 @@ const AdminSchema = new mongoose.Schema(
       required: true,
       default: "inactive",
     },
-
     role: {
       type: String,
+      required: true,
       default: "Admin",
     },
-
     fName: {
       type: String,
       required: true,
-      maxlength: 50,
+      maxLength: 50,
     },
-
-    lName: {
-      type: String,
-      required: true,
-      maxlength: 50,
-    },
-
     phone: {
       type: String,
       required: true,
-      maxlength: 50,
+      maxLength: 15,
     },
-
     email: {
       type: String,
+      required: true,
+      maxLength: 50,
       unique: true,
       index: 1,
-      required: true,
-      maxlength: 50,
     },
-
     password: {
       type: String,
       required: true,
-      maxlength: 100,
+      maxLength: 100,
     },
-
-    Dob: {
+    dob: {
       type: Date,
+      required: true,
       default: null,
     },
-    address: {
+    Address: {
       type: String,
-      maxlength: 100,
+      maxLength: 50,
     },
     verificationCode: {
       type: String,
-      maxlength: 50,
+      maxLength: 50,
     },
   },
   {
@@ -63,4 +53,4 @@ const AdminSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("Admin_user", AdminSchema);
+export default mongoose.model("admin_user", AdminSchema);

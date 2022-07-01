@@ -9,7 +9,7 @@ GET http://localhost:8000
 
 ### Admin user register 
 
-POST http://localhost:8000/api/v1/register-login
+POST http://localhost:8000/api/v1/registerloginRouter
 Content-Type: application/json
 
 {
@@ -19,5 +19,16 @@ Content-Type: application/json
     "phone":"044444444",
     "email": "asdfasdf@gmail.com",
     "address": "Sydney",
+    "password": "12345"
+}
+
+### Admin login
+
+POST http://localhost:8000/login
+Content-Type: application/json
+
+{
+    
+    "email": "asdfasdf@gmail.com",
     "password": "12345"
 }
