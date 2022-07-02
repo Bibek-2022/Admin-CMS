@@ -31,6 +31,10 @@ route.post("/", adminRegistrationValidation, async (req, res, next) => {
         message: "We have sent you verification",
       });
     }
+    res.json({
+      status: "success",
+      message: "Verification done",
+    });
   } catch (error) {
     if (error.message.includes("E11000 duplicate key error collection")) {
       error.status = 200;
@@ -80,7 +84,7 @@ route.post("/login", loginValidation, async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const result = await getOneAdmin({ email });
-
+    console.log(result);
     if (result?._id) {
       // check pw
       const isMatch = comparePassword(password, result.password);
