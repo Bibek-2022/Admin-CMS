@@ -2,17 +2,14 @@ import nodemailer from "nodemailer";
 
 // async..await is not allowed in global scope, must use a wrapper
 const sendMail = async (emailInfo) => {
-  // Generate test SMTP serice account from ethereal.email
-  // Only needed if you don't have a real mail account for testing
-
-  // create reusable transporter object using the default SMTP transport
+  // create reusable transport er object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     host: process.env.MAIL_SMTP,
     port: +process.env.MAIL_PORT,
     secure: false, // true for 465, false for other ports
     auth: {
       user: process.env.MAIL_USER, // generated ethereal user
-      pass: process.env.MAILD_PASS, // generated ethereal password
+      pass: process.env.MAIL_PASS, // generated ethereal password
     },
   });
 
@@ -29,28 +26,31 @@ const sendMail = async (emailInfo) => {
 
 export const sendAdminUserVerificationMail = (userObj) => {
   const link = `${process.env.DOMAIN}/admin-verification?e=${userObj.email}&c=${userObj.verificationCode}`;
-  // "http://localhost:3000/admin-verification?email=" +
-  //   userObj.email +
-  //   "&c=" +
-  //   userObj.verificationCode;
+
   const emailInfo = {
-    from: '"ABC store" ' + process.env.MAIL_USER,
+    from: '"ABC store 👻" <noreply@e-commerce.com>', // sender address
     to: userObj.email, // list of receivers
-    subject: "Account Verification required", // Subject line
-    text: `Hi ${userObj.fName} and ${link}`, // plain text body
+    subject: "Account verification required", // Subject line
+    text: `Hi ${userObj.fName} please follow the link to activate your admin account. ${link}`, // plain text body
     html: `
-    <p>Hello ${userObj.fName}</p>
+    <p> Hello ${userObj.fName} </p>
     <br/>
     <br/>
-    <p>Please follow the link below to verify and activate your admin account<p/>
+    <p>Please follow the link below to verify and activate your admin account </p>
     <br/>
     <br/>
-    <a href =${link}>${link}</a>
+    <a href= "${link}">${link}</a>  
     
     <br/>
     <br/>
-
-    <p>xyz company</p>
+    <>
+    ================
+    <br/>
+    XYZ company 
+    Customer Service Team
+    <p/>
+    
+    
     `, // html body
   };
   sendMail(emailInfo);

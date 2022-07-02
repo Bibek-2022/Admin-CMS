@@ -18,9 +18,9 @@ export const RegistrationForm = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
-    if (form.password !== form.confirmPassword) {
-      return toast.error("Passwords do not match");
-    }
+    // if (form.password !== form.confirmPassword) {
+    //   return toast.error("Passwords do not match");
+    // }
     const { confirmPassword, ...rest } = form;
     const { status, message } = await postAdminUser(rest);
     toast[status](message);
@@ -64,7 +64,7 @@ export const RegistrationForm = () => {
         <Form.Control
           onChange={handleOnChange}
           type="date"
-          name="Dob"
+          name="dob"
           placeholder="Date of Birth"
         />
       </Form.Group>
@@ -73,7 +73,7 @@ export const RegistrationForm = () => {
         <Form.Control
           onChange={handleOnChange}
           type="text"
-          name="address"
+          name="Address"
           placeholder="Address"
         />
       </Form.Group>

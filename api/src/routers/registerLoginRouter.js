@@ -31,10 +31,6 @@ route.post("/", adminRegistrationValidation, async (req, res, next) => {
         message: "We have sent you verification",
       });
     }
-    res.json({
-      status: "success",
-      message: "We have sent you an email,please follow the step",
-    });
   } catch (error) {
     if (error.message.includes("E11000 duplicate key error collection")) {
       error.status = 200;
@@ -88,6 +84,18 @@ route.post("/login", loginValidation, async (req, res, next) => {
     if (result?._id) {
       // check pw
       const isMatch = comparePassword(password, result.password);
+      result.password = undefined;
+      if (isMatch) {
+        return result.status === "active"
+          ? res.json({
+              status: "success",
+              message: "You are logged in",
+            })
+          : res.json({
+              status: "error",
+              message: "Your account is not active",
+            });
+      }
     }
     res.json({
       status: "error",

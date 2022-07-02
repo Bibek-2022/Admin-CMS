@@ -17,6 +17,11 @@ const AdminSchema = new mongoose.Schema(
       required: true,
       maxLength: 50,
     },
+    lName: {
+      type: String,
+      required: true,
+      maxLength: 50,
+    },
     phone: {
       type: String,
       required: true,
