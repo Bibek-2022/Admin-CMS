@@ -17,19 +17,23 @@ app.use(express.json());
 //connect to db
 import { mongoConnect } from "./src/config/dbConfig.js";
 mongoConnect();
+
 import registerLoginRouter from "./src/routers/registerLoginRouter.js";
+import categoriesRouter from "./src/routers/categoriesRouter.js";
 app.use("/api/v1/register-login", registerLoginRouter),
-  app.get("/", (req, res) => {
-    res.json({
-      message: "Its ECommerce API",
-    });
+  app.use("/api/v1/category", categoriesRouter);
+app.get("/", (req, res) => {
+  res.json({
+    message: "you reach a e-commerce api",
   });
+});
 
 app.use((error, req, res) => {
   console.log(error.message);
   res.status = error.status || 404;
   res.json({
     status: "error",
+    status: "error server",
     message: error.message,
   });
 });
