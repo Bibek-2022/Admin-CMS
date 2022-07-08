@@ -1,9 +1,31 @@
 import express from "express";
-import { categoryValidation } from "../middlewares/validationMiddleware.js";
-import { createCategory } from "../models/adminUser/CategoryModel.js";
+import {
+  categoryValidation,
+  updateCategoryValidation,
+} from "../middlewares/validationMiddleware.js";
+import {
+  createCategory,
+  getCategories,
+  getCategoriesByID,
+  updateCategoriesByID,
+} from "../models/adminUser/CategoryModel.js";
 import slugify from "slugify";
 
 const router = express.Router();
+
+router.get("/:_id?", async (res, req, next) => {
+  try {
+    const { _id } = req.params;
+    const result = _id ? await getCategoriesByID(_id) : await getCategories();
+    res.json({
+      status: "success",
+      message: "Here are the categories",
+      result,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 // add the catogery
 router.post("/", categoryValidation, async (req, res, next) => {
@@ -35,4 +57,13 @@ router.post("/", categoryValidation, async (req, res, next) => {
   }
 });
 
+router.put("/", updateCategoryValidation, async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const result = await updateCategoriesByID(req.body);
+    res.json({ status: success, message: "Category has been updated" });
+  } catch (error) {
+    next(error);
+  }
+});
 export default router;
