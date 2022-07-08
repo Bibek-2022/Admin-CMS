@@ -61,7 +61,10 @@ router.put("/", updateCategoryValidation, async (req, res, next) => {
   try {
     console.log(req.body);
     const result = await updateCategoriesByID(req.body);
-    res.json({ status: success, message: "Category has been updated" });
+
+    result?._id
+      ? res.json({ status: success, message: "Category has been updated" })
+      : res.json({ status: success, message: "Category has not been updated" });
   } catch (error) {
     next(error);
   }

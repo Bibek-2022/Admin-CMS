@@ -8,7 +8,7 @@ const Login = () => {
   const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    user._id && navigate("/dashboard");
+    user?._id && navigate("/dashboard");
   }, [navigate, user]);
   console.log(user);
   return (

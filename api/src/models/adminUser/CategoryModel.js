@@ -15,3 +15,7 @@ export const getCategoriesByID = (_id) => {
 export const updateCategoriesByID = ({ _id, ...obj }) => {
   return CategorySchema.findByIdaAndUpdate(_id, obj, { new: true });
 };
+
+export const deleteCategoriesByID = (ids) => {
+  return CategorySchema.deleteMany({ $in: { _id: ids } });
+};
