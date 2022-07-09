@@ -17,6 +17,7 @@ export const Header = () => {
             class="fa-solid fa-bars"
             onClick={() => dispatch(toggleShowSideMenu())}
           ></i>{" "}
+          {/* <button onClick={() => dispatch(toggleShowSideMenu())}></button> */}
           CMS admin
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

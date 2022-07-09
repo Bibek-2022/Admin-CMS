@@ -94,6 +94,7 @@ route.post("/login", loginValidation, async (req, res, next) => {
           ? res.json({
               status: "success",
               message: "You are logged in",
+              result,
             })
           : res.json({
               status: "error",
