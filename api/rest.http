@@ -48,5 +48,5 @@ DELETE  http://localhost:8000/api/v1/category
 Content-Type: application/json
 
 {
-    "ids": ["62c8c5046b6fa14779e98552"]
+    "ids": ["62c8c58bd9d7ef391158ce94"]
 } 

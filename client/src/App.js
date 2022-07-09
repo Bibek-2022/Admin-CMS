@@ -6,7 +6,7 @@ import Registration from "./pages/login-registration/Registration";
 import { toast, ToastContainer } from "react-toastify";
 import { EmailVerification } from "./pages/EmailVerification";
 import { Dashboard } from "./pages/dashboard/Dashboard";
-import Categories from "./pages/Categories.js/Categories";
+import Categories from "./pages/Categories/Categories";
 import Product from "./pages/products/Products";
 import PaymentMethod from "./pages/paymentMethod/PaymentMethod";
 import User from "./pages/users/User";
