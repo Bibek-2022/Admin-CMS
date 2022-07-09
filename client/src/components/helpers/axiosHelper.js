@@ -2,7 +2,7 @@ import axios from "axios";
 const rootUrl = "http://localhost:8000/api/v1";
 const loginRegisterEP = rootUrl + "/register-login";
 const loginEP = loginRegisterEP + "/login";
-
+const catEP = rootUrl + "/category";
 const apiProcessor = async (method, url, data) => {
   try {
     const response = await axios({
@@ -29,4 +29,11 @@ export const emailVerificationAdminUser = (obj) => {
 
 export const loginAdminUser = (obj) => {
   return apiProcessor("post", loginEP, obj);
+};
+
+// ----------------------Category API--------------------------------//
+
+export const fetchCategory = (_id) => {
+  const url = _id ? catEP + "/" + _id : catEP;
+  return apiProcessor("get", url);
 };

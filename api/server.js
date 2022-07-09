@@ -28,11 +28,10 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use((error, req, res) => {
+app.use((error, req, res, next) => {
   console.log(error.message);
-  res.status = error.status || 404;
-  res.json({
-    status: "error",
+  const status = error.status || 404;
+  res.status(status).json({
     status: "error server",
     message: error.message,
   });

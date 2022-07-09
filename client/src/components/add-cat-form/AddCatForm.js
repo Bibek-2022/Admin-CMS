@@ -20,7 +20,7 @@ export const AddCatForm = () => {
           <Col md="3">
             <Form.Group controlId="formGridState">
               <Form.Select defaultValue="Choose...">
-                <option>Choose...</option>
+                <option>Select Parent Category...</option>
                 <option>...</option>
               </Form.Select>
             </Form.Group>

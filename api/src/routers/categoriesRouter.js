@@ -14,7 +14,7 @@ import slugify from "slugify";
 
 const router = express.Router();
 
-router.get("/:_id?", async (res, req, next) => {
+router.get("/:_id?", async (req, res, next) => {
   try {
     const { _id } = req.params;
     const result = _id ? await getCategoriesByID(_id) : await getCategories();
