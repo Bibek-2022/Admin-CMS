@@ -37,3 +37,11 @@ export const fetchCategory = (_id) => {
   const url = _id ? catEP + "/" + _id : catEP;
   return apiProcessor("get", url);
 };
+
+export const postCategory = (obj) => {
+  return apiProcessor("post", catEP, obj);
+};
+
+export const deleteCategories = (obj) => {
+  return apiProcessor("delete", catEP, obj);
+};
