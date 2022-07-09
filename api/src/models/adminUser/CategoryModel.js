@@ -17,5 +17,5 @@ export const updateCategoriesByID = ({ _id, ...obj }) => {
 };
 
 export const deleteCategoriesByID = (ids) => {
-  return CategorySchema.deleteMany({ $in: { _id: ids } });
+  return CategorySchema.deleteMany({ _id: { $in: ids } });
 };

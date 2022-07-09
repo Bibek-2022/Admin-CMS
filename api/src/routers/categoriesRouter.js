@@ -5,6 +5,7 @@ import {
 } from "../middlewares/validationMiddleware.js";
 import {
   createCategory,
+  deleteCategoriesByID,
   getCategories,
   getCategoriesByID,
   updateCategoriesByID,
@@ -57,14 +58,30 @@ router.post("/", categoryValidation, async (req, res, next) => {
   }
 });
 
+// update
 router.put("/", updateCategoryValidation, async (req, res, next) => {
   try {
     console.log(req.body);
     const result = await updateCategoriesByID(req.body);
 
     result?._id
-      ? res.json({ status: success, message: "Category has been updated" })
-      : res.json({ status: success, message: "Category has not been updated" });
+      ? res.json({ status: "success", message: "Category has been updated" })
+      : res.json({ status: "errpr", message: "Category has not been updated" });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// delete
+router.delete("/", async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const { ids } = req.body;
+    const result = await deleteCategoriesByID(ids);
+
+    result?.deletedCount
+      ? res.json({ status: "success", message: "Category has been updated" })
+      : res.json({ status: "error", message: "Category has not been updated" });
   } catch (error) {
     next(error);
   }
