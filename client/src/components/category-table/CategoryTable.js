@@ -7,6 +7,7 @@ import {
   getCategoriesAction,
 } from "../../pages/Categories/catAction";
 import { setCategories } from "../../pages/Categories/catSlice";
+import { CustomModal } from "../custom-modal/CustomModal";
 
 export const CategoryTable = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ export const CategoryTable = () => {
   return (
     <Row className="mt-5">
       <Col>
+        <CustomModal />
         <p>Product Found</p>
         <Table striped bordered hover>
           <thead>
