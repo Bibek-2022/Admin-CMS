@@ -55,9 +55,11 @@ export const AddCatForm = () => {
                 <option>Select Parent Category...</option>
                 {categories.map((item) => {
                   return (
-                    <option key={item._id} value={item._id}>
-                      {item.name}
-                    </option>
+                    item.parentCatId === null && (
+                      <option key={item._id} value={item._id}>
+                        {item.name}
+                      </option>
+                    )
                   );
                 })}
               </Form.Select>

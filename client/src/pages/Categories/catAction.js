@@ -2,6 +2,7 @@ import {
   deleteCategories,
   fetchCategory,
   postCategory,
+  updateCategory,
 } from "../../components/helpers/axiosHelper";
 import { setCategories } from "./catSlice";
 import { toast } from "react-toastify";
@@ -26,5 +27,15 @@ export const deleteCategoryAction = (obj) => async (dispatch) => {
 
   const { status, message } = await responsePromise;
   toast[status](message);
+  status === "success" && dispatch(getCategoriesAction());
+};
+
+export const updateCategoryAction = (obj) => async (dispatch) => {
+  const responsePromise = updateCategory(obj);
+  toast.promise(responsePromise, { pending: "Please wait..." });
+  const { status, result } = await responsePromise;
+
+  toast[status](result);
+
   status === "success" && dispatch(getCategoriesAction());
 };

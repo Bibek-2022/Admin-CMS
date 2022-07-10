@@ -13,7 +13,7 @@ export const getCategoriesByID = (_id) => {
 };
 
 export const updateCategoriesByID = ({ _id, ...obj }) => {
-  return CategorySchema.findByIdaAndUpdate(_id, obj, { new: true });
+  return CategorySchema.findByIdAndUpdate(_id, obj, { new: true });
 };
 
 export const deleteCategoriesByID = (ids) => {

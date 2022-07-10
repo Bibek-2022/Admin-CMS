@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
-import Table from "react-bootstrap/Table";
+import { Button, Col, Form, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteCategoryAction,
@@ -8,12 +7,13 @@ import {
 } from "../../pages/Categories/catAction";
 import { setCategories } from "../../pages/Categories/catSlice";
 import { CustomModal } from "../custom-modal/CustomModal";
-
+import { toggleShowModal } from "../../pages/system-state/SystemSlice";
+import EditCatForm from "../add-cat-form/EditCatForm";
 export const CategoryTable = () => {
   const dispatch = useDispatch();
   const [catToDelete, setCatToDelete] = useState([]);
   const { categories } = useSelector((state) => state.categories);
-
+  const [selectCat, setSelectCat] = useState({});
   useEffect(() => {
     dispatch(getCategoriesAction());
   }, []);
@@ -32,6 +32,15 @@ export const CategoryTable = () => {
     // individual category
     if (checked) {
       // add value to the list
+      const hasChildCat = categories.filter(
+        (item) => item.parentCatId === value
+      );
+      if (hasChildCat.length) {
+        return alert(
+          "This category have a child categories so if you wanna delete then please add child categories or assign to other"
+        );
+      }
+
       setCatToDelete([...catToDelete, value]);
     } else {
       // remove value from the list
@@ -45,10 +54,20 @@ export const CategoryTable = () => {
       setCatToDelete([]);
     }
   };
+  const handleOnEdit = (catObj) => {
+    dispatch(toggleShowModal(true));
+    setSelectCat(catObj);
+  };
+
+  const parentCatIds = categories.filter((item) => item.parentCatId === null);
+  const childCats = categories.filter((item) => item.parentCatId !== null);
   return (
     <Row className="mt-5">
       <Col>
-        <CustomModal />
+        <CustomModal title={"Update Category"}>
+          {" "}
+          <EditCatForm selectCat={selectCat} />
+        </CustomModal>
         <p>Product Found</p>
         <Table striped bordered hover>
           <thead>
@@ -62,21 +81,52 @@ export const CategoryTable = () => {
             </tr>
           </thead>
           <tbody>
-            {categories.map((item) => (
-              <tr key={item._id}>
-                <td>
-                  <Form.Check
-                    value={item._id}
-                    onChange={handleOnSelect}
-                    checked={catToDelete.includes(item._id)}
-                  />
-                </td>
-                <td>{item.status}</td>
-                <td>{item.name}</td>
-                <td>
-                  <Button variant="warning"> Edit </Button>
-                </td>
-              </tr>
+            {parentCatIds.map((item) => (
+              <>
+                <tr key={item._id} className="bg-warning">
+                  <td>
+                    <Form.Check
+                      value={item._id}
+                      onChange={handleOnSelect}
+                      checked={catToDelete.includes(item._id)}
+                    />
+                  </td>
+                  <td>{item.status}</td>
+                  <td>{item.name}</td>
+                  <td>
+                    <Button
+                      variant="warning"
+                      onClick={() => handleOnEdit(item)}
+                    >
+                      Edit
+                    </Button>
+                  </td>
+                </tr>
+                {childCats.map(
+                  (cat) =>
+                    cat.parentCatId === item._id && (
+                      <tr key={cat._id}>
+                        <td>
+                          <Form.Check
+                            value={cat._id}
+                            onChange={handleOnSelect}
+                            checked={catToDelete.includes(cat._id)}
+                          />
+                        </td>
+                        <td>{cat.status}</td>
+                        <td>{cat.name}</td>
+                        <td>
+                          <Button
+                            variant="warning"
+                            onClick={() => handleOnEdit(cat)}
+                          >
+                            Edit
+                          </Button>
+                        </td>
+                      </tr>
+                    )
+                )}
+              </>
             ))}
           </tbody>
         </Table>

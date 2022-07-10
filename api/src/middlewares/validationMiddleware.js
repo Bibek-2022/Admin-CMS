@@ -63,6 +63,7 @@ export const categoryValidation = (req, res, next) => {
 
 // category Validation
 export const updateCategoryValidation = (req, res, next) => {
+  req.body.parentCatId = req.body.parentCatId ? req.body.parentCatId : null;
   const schema = Joi.object({
     _id: Joi.string().max(50).required(),
     status: Joi.string().min(3).max(50).required(),
