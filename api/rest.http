@@ -50,3 +50,17 @@ Content-Type: application/json
 {
     "ids": ["62c8c58bd9d7ef391158ce94"]
 } 
+
+
+### get payment method
+
+GET http://localhost:8000/api/v1/payment-method
+
+### post payment method
+POST http://localhost:8000/api/v1/payment-method
+Content-Type: application/json
+### put payment method
+PUT http://localhost:8000/api/v1/payment-method
+
+### delete payment method
+DELETE http://localhost:8000/api/v1/payment-method/id
