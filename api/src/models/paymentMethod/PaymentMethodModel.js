@@ -1,4 +1,4 @@
-import PaymentMethodSchema from "./PaymentMethodSchema";
+import PaymentMethodSchema from "./PaymentMethodSchema.js";
 
 export const createPaymentMethod = (obj) => {
   return PaymentMethodSchema(obj).save();
