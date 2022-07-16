@@ -62,11 +62,19 @@ Content-Type: application/json
 
 {
     "status":"active",
-    "name":"Cash",
+    "name":"Credit Card",
     "desc":"ibiebbaisdbf"
 }
 ### put payment method
 PUT http://localhost:8000/api/v1/payment-method
+Content-Type: application/json
+
+{
+    "_id": "62d1ff0c6a5ef149b414a06f",
+    "status":"inactive",
+    "name":"Debit",
+    "desc":"ibiebbaisdbf"
+}
 
 ### delete payment method
-DELETE http://localhost:8000/api/v1/payment-method/id
+DELETE http://localhost:8000/api/v1/payment-method/62d1ff0c6a5ef149b414a06f

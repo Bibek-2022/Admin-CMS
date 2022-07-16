@@ -26,3 +26,13 @@ All registration and login api follow the following patterns {rootUrl}/api/v1/re
 # PATH METHOD IS PRIVATE DESCRIPTION
 
 1. / POST Yes Send user data, fName, lName.... to care new admin user in the database
+
+## Admin user api
+
+    Register and login api are private.
+
+    /api/v1/register-login/register -> This is the register api and the entry point to register a new admin user.
+
+    /api/v1/register-login/login -> This is the login api and the entry point to login a admin user.
+
+    /api/v1/register-login/logout -> This is the logout api and the entry point to logout a admin user.

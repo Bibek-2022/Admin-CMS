@@ -14,11 +14,11 @@ export const getSinglePaymentMethod = (filter) => {
 };
 
 // find One and Update
-export const updatePaymentMethod = (filter, update) => {
-  return PaymentMethodSchema.findOneAndUpdate(filter, update, { new: true });
+export const updatePaymentMethodByID = ({ _id, ...update }) => {
+  return PaymentMethodSchema.findByIdAndUpdate(_id, update, { new: true });
 };
 
 // delete
-export const deletePaymentMethod = (filter) => {
-  return PaymentMethodSchema.findOneAndDelete(filter);
+export const deletePaymentMethodById = (_id) => {
+  return PaymentMethodSchema.findByIdAndDelete(_id);
 };

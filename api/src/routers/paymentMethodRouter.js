@@ -1,14 +1,25 @@
 import express from "express";
-import { paymentMethodValidation } from "../middlewares/validationMiddleware.js";
-import { createPaymentMethod } from "../models/paymentMethod/PaymentMethodModel.js";
+import {
+  paymentMethodValidation,
+  updatePaymentMethodValidation,
+} from "../middlewares/validationMiddleware.js";
+import {
+  createPaymentMethod,
+  deletePaymentMethodById,
+  getPaymentMethod,
+  updatePaymentMethodByID,
+} from "../models/paymentMethod/PaymentMethodModel.js";
 
 const router = express.Router();
 
-router.get("/", paymentMethodValidation, (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
+    const result = await getPaymentMethod();
+
     res.json({
       status: "success",
-      message: "todo post method",
+      message: "List of Payment Method",
+      result,
     });
   } catch (error) {
     error.status = 500;
@@ -16,7 +27,7 @@ router.get("/", paymentMethodValidation, (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", paymentMethodValidation, async (req, res, next) => {
   try {
     const result = await createPaymentMethod(req.body);
 
@@ -35,24 +46,37 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.put("/", (req, res, next) => {
+router.put("/", updatePaymentMethodValidation, async (req, res, next) => {
   try {
-    res.json({
-      status: "success",
-      message: "todo patch method",
-    });
+    const result = await updatePaymentMethodByID(req.body);
+    result?._id
+      ? res.json({
+          status: "success",
+          message: "Payment method updated",
+        })
+      : res.json({
+          status: "error",
+          message: "Unable to update the payment method",
+        });
   } catch (error) {
     error.status = 500;
     next(error);
   }
 });
 
-router.delete("/:_id", (req, res, next) => {
+router.delete("/:_id", async (req, res, next) => {
   try {
-    res.json({
-      status: "success",
-      message: "todo delete method",
-    });
+    const { _id } = req.params;
+    const result = await deletePaymentMethodById(_id);
+    result?._id
+      ? res.json({
+          status: "success",
+          message: "Payment method has been deleted",
+        })
+      : res.json({
+          status: "error",
+          message: "Payment Method can not be deleted",
+        });
   } catch (error) {
     error.status = 500;
     next(error);

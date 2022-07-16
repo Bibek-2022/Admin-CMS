@@ -99,3 +99,22 @@ export const paymentMethodValidation = (req, res, next) => {
   }
   next();
 };
+
+//payment Validation
+export const updatePaymentMethodValidation = (req, res, next) => {
+  const schema = Joi.object({
+    _id: Joi.string().min(3).max(50).required(),
+    status: Joi.string().min(3).max(50).required(),
+    name: Joi.string().min(3).max(50).required(),
+    desc: Joi.string().min(3).max(500).allow(null, ""),
+  });
+
+  const { error } = schema.validate(req.body);
+  if (error) {
+    return res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
+  next();
+};
