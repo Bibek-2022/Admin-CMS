@@ -62,8 +62,8 @@ Content-Type: application/json
 
 {
     "status":"active",
-    "name":"Credit Card",
-    "desc":"ibiebbaisdbf"
+    "name":"Rice",
+    "desc":"Check check check"
 }
 ### put payment method
 PUT http://localhost:8000/api/v1/payment-method
