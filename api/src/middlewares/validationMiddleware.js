@@ -1,120 +1,89 @@
 import Joi from "joi";
+import {
+  ADDRESS,
+  DOB,
+  EMAIL,
+  FNAME,
+  LNAME,
+  PASSWORD,
+  PHONE,
+  SHORTSTR,
+  LONGSTR,
+  STATUS,
+  joiValidator,
+} from "./validationConstant.js";
 
 export const adminRegistrationValidation = (req, res, next) => {
   console.log(req.body);
 
   const schema = Joi.object({
-    fName: Joi.string().min(3).max(50).required(),
-    lName: Joi.string().min(3).max(50).required(),
-    dob: Joi.date().allow(null, "").required(),
-    phone: Joi.string().min(3).max(50).required(),
-    email: Joi.string().email({ minDomainSegments: 2 }).max(30).required(),
-    password: Joi.string().min(3).max(50).required(),
-    Address: Joi.string().allow("").max(50),
+    fName: FNAME,
+    lName: LNAME,
+    dob: DOB,
+    phone: PHONE,
+    email: EMAIL,
+    password: PASSWORD,
+    Address: ADDRESS,
   });
 
-  const { error, value } = schema.validate(req.body);
-  if (error) {
-    return res.json({
-      status: "error",
-      message: error.message,
-    });
-  }
-
-  next();
+  joiValidator(schema, req, res, next);
 };
 
 export const loginValidation = (req, res, next) => {
   console.log(req.body);
 
   const schema = Joi.object({
-    email: Joi.string().email({ minDomainSegments: 2 }).max(30).required(),
-    password: Joi.string().min(3).max(50).required(),
+    email: EMAIL,
+    password: PASSWORD,
   });
 
-  const { error, value } = schema.validate(req.body);
-  if (error) {
-    return res.json({
-      status: "error",
-      message: error.message,
-    });
-  }
-
-  next();
+  joiValidator(schema, req, res, next);
 };
 
 // category Validation
 export const categoryValidation = (req, res, next) => {
   const schema = Joi.object({
-    status: Joi.string().min(3).max(50).required(),
-    name: Joi.string().min(3).max(50).required(),
+    status: STATUS,
+    name: SHORTSTR.required(),
     parentCatId: Joi.string().allow(null, ""),
   });
 
-  const { error, value } = schema.validate(req.body);
-  if (error) {
-    return res.json({
-      status: "error",
-      message: error.message,
-    });
-  }
-  next();
+  joiValidator(schema, req, res, next);
 };
 
 // category Validation
 export const updateCategoryValidation = (req, res, next) => {
   req.body.parentCatId = req.body.parentCatId ? req.body.parentCatId : null;
   const schema = Joi.object({
-    _id: Joi.string().max(50).required(),
-    status: Joi.string().min(3).max(50).required(),
-    name: Joi.string().min(3).max(50).required(),
-    parentCatId: Joi.string().allow(null, ""),
+    _id: SHORTSTR.required(),
+    status: STATUS,
+    name: SHORTSTR.required(),
+    parentCatId: SHORTSTR.allow(null, ""),
   });
 
-  const { error, value } = schema.validate(req.body);
-  if (error) {
-    return res.json({
-      status: "error",
-      message: error.message,
-    });
-  }
-  next();
+  joiValidator(schema, req, res, next);
 };
 
 //
 //payment Validation
 export const paymentMethodValidation = (req, res, next) => {
   const schema = Joi.object({
-    status: Joi.string().min(3).max(50).required(),
-    name: Joi.string().min(3).max(50).required(),
+    status: STATUS,
+    name: SHORTSTR.required(),
     desc: Joi.string().min(3).max(500).allow(null, ""),
   });
 
-  const { error } = schema.validate(req.body);
-  if (error) {
-    return res.json({
-      status: "error",
-      message: error.message,
-    });
-  }
-  next();
+  joiValidator(schema, req, res, next);
 };
 
 //payment Validation
 export const updatePaymentMethodValidation = (req, res, next) => {
   const schema = Joi.object({
-    _id: Joi.string().min(3).max(50).required(),
-    status: Joi.string().min(3).max(50).required(),
-    name: Joi.string().min(3).max(50).required(),
+    _id: SHORTSTR.required(),
+    status: STATUS,
+    name: SHORTSTR.required(),
     desc: Joi.string().min(3).max(500).allow(null, ""),
   });
 
-  const { error } = schema.validate(req.body);
-  if (error) {
-    return res.json({
-      status: "error",
-      message: error.message,
-    });
-  }
-  next();
+  joiValidator(schema, req, res, next);
 };
