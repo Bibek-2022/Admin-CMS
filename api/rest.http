@@ -61,9 +61,9 @@ POST http://localhost:8000/api/v1/payment-method
 Content-Type: application/json
 
 {
-    "status":"active",
-    "name":"Rice",
-    "desc":"Check check check"
+    "status":"inactive",
+    "name":"Fight",
+    "desc":"Whatever"
 }
 ### put payment method
 PUT http://localhost:8000/api/v1/payment-method

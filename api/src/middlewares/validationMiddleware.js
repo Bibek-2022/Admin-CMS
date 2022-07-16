@@ -70,7 +70,7 @@ export const paymentMethodValidation = (req, res, next) => {
   const schema = Joi.object({
     status: STATUS,
     name: SHORTSTR.required(),
-    desc: Joi.string().min(3).max(500).allow(null, ""),
+    description: Joi.string().min(3).max(500).allow(null, ""),
   });
 
   joiValidator(schema, req, res, next);
@@ -82,7 +82,7 @@ export const updatePaymentMethodValidation = (req, res, next) => {
     _id: SHORTSTR.required(),
     status: STATUS,
     name: SHORTSTR.required(),
-    desc: Joi.string().min(3).max(500).allow(null, ""),
+    description: Joi.string().min(3).max(500).allow(null, ""),
   });
 
   joiValidator(schema, req, res, next);

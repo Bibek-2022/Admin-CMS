@@ -56,3 +56,8 @@ export const updateCategory = (obj) => {
 export const fetchPaymentMethods = () => {
   return apiProcessor("get", paymentMethodEP);
 };
+
+// delete payment method
+export const deletePaymentMethod = (_id) => {
+  return apiProcessor("delete", paymentMethodEP + "/" + _id);
+};
