@@ -63,7 +63,7 @@ Content-Type: application/json
 {
     "status":"inactive",
     "name":"Fight",
-    "desc":"Whatever"
+    "description":"Whatever"
 }
 ### put payment method
 PUT http://localhost:8000/api/v1/payment-method
@@ -77,4 +77,4 @@ Content-Type: application/json
 }
 
 ### delete payment method
-DELETE http://localhost:8000/api/v1/payment-method/62d1ff0c6a5ef149b414a06f
+DELETE http://localhost:8000/api/v1/payment-method/62d238cdd35b6dc876ee8a55
