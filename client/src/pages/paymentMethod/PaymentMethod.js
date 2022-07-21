@@ -3,7 +3,8 @@ import AdminLayout from "../../layout/AdminLayout";
 import Table from "react-bootstrap/Table";
 import { PaymentMethodTable } from "../../components/payment-method/PaymentMethodTable";
 import { Button } from "react-bootstrap";
-import { AddPaymentMethod } from "../../components/payment-method/AddPaymentMethod";
+import { AddPaymentMethodForm } from "../../components/payment-method/AddPaymentMethodForm";
+
 const PaymentMethod = () => {
   return (
     <AdminLayout>
@@ -13,7 +14,7 @@ const PaymentMethod = () => {
           <i class="fa-solid fa-plus"></i> Add Payment Method
         </Button>
       </div>
-      <AddPaymentMethod />
+      <AddPaymentMethodForm />
       <PaymentMethodTable />
     </AdminLayout>
   );

@@ -2,9 +2,11 @@ import {
   deletePaymentMethod,
   fetchCategory,
   fetchPaymentMethods,
+  updatePaymentMethod,
 } from "../../components/helpers/axiosHelper";
 import { setPaymentMethods } from "./paymentMethodSlice";
 import { toast } from "react-toastify";
+
 export const getPaymentMethodsAction = () => async (dispatch) => {
   const { status, result } = await fetchPaymentMethods();
 

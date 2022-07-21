@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { postPaymentMethodAction } from "../../pages/payment-method/paymentMethodAction";
+import { postPaymentMethodAction } from "../../pages/paymentMethod/paymentMethodAction.js";
 
-import { CustomInput } from "../custom-input/CustomInput";
+import { CustomInput } from "../../custom-input/CustomInput";
 import { CustomModal } from "../custom-modal/CustomModal";
 
 const initialState = {
