@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   postPaymentMethodAction,
   updatePaymentMethodAction,
-} from "../../pages/payment-method/paymentMethodAction";
+} from "../../pages/paymentMethod/paymentMethodAction";
 
 import { CustomInput } from "../../custom-input/CustomInput";
 import { CustomModal } from "../custom-modal/CustomModal";
