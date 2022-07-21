@@ -57,7 +57,14 @@ export const fetchPaymentMethods = () => {
   return apiProcessor("get", paymentMethodEP);
 };
 
-// delete payment method
+export const postPaymentMethod = (obj) => {
+  return apiProcessor("post", paymentMethodEP, obj);
+};
+
 export const deletePaymentMethod = (_id) => {
   return apiProcessor("delete", paymentMethodEP + "/" + _id);
+};
+
+export const updatePaymentMethod = (obj) => {
+  return apiProcessor("put", paymentMethodEP, obj);
 };

@@ -20,3 +20,14 @@ export const deletePaymentMethodAction = (_id) => async (dispatch) => {
 
   status === "success" && dispatch(getPaymentMethodsAction());
 };
+
+export const updatePaymentMethodAction = (obj) => async (dispatch) => {
+  const responsePromise = updatePaymentMethod(obj);
+  toast.promise(responsePromise, { pending: "Please wait.." });
+
+  const { status, message } = await responsePromise;
+
+  toast[status](message);
+
+  status === "success" && dispatch(getPaymentMethodsAction());
+};
