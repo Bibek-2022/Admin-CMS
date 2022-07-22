@@ -78,3 +78,17 @@ Content-Type: application/json
 
 ### delete payment method
 DELETE http://localhost:8000/api/v1/payment-method/62d238cdd35b6dc876ee8a55
+
+
+### admin get all users
+
+### update pw from profile
+
+PATCH http://localhost:8000/api/v1/admin
+Content-Type: application/json
+
+{
+    "oldPassword": "12345",
+    "newPassword": "asdfasdf",
+    "email": "blablabla"
+}

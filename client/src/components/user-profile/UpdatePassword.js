@@ -17,6 +17,7 @@ export const UpdatePassword = () => {
     let { name, value } = e.target;
     if (name === "password" || name === "confirmPassword") {
       setError("");
+      !disableBtn && setDisableBtn(true);
     }
     console.log(name, value);
 
@@ -43,6 +44,10 @@ export const UpdatePassword = () => {
     console.log(form);
   };
 
+  const disabledBtn = () => {
+    !error && setDisableBtn(false);
+  };
+
   const inputFields = [
     {
       label: "Current Password",
@@ -64,6 +69,7 @@ export const UpdatePassword = () => {
       required: true,
       type: "password",
       value: form.confirmPassword,
+      onBlur: disabledBtn,
     },
   ];
   return (
