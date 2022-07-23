@@ -12,6 +12,8 @@ import {
 } from "../models/adminUser/AdminModel.js";
 import { v4 as uuidv4 } from "uuid";
 import { sendAdminUserVerificationMail } from "../helpers/emailHelper.js";
+import router from "./adminRouter.js";
+import { randomNumberGenerator } from "../utils/randomGenerator.js";
 const route = express.Router();
 
 route.post("/", adminRegistrationValidation, async (req, res, next) => {
@@ -110,5 +112,31 @@ route.post("/login", loginValidation, async (req, res, next) => {
     next(error);
   }
 });
+
+// request OTP for password reset
+router.post("/otp-request", async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (email.length > 3 && email.length < 50) {
+      //  find if user exist
+
+      // generate random 6 digit OTP
+
+      // send OTP to user email
+
+      //  respond to client
+
+      res.json({
+        status: "error",
+        message:
+          "if this email exist in our system, we will send you OTP, Please check your email and follow the instruction",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+// reset new password
 
 export default route;

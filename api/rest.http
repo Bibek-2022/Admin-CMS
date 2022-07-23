@@ -112,3 +112,29 @@ Content-Type: application/json
 
 }
 
+
+
+### password reset
+
+### request OTP for password reset
+
+POST http://localhost:8000/api/v1/registerloginRouter/otp-request
+Content-Type: application/json
+
+{
+    "email": "bibekheoes@gmail.com"
+  
+}
+
+
+### verify OTP for password reset and reset password
+
+PATCH http://localhost:8000/api/v1/registerloginRouter/password
+Content-Type: application/json
+
+{
+    "email": "bibekheoes@gmail.com",
+    "otp": "123456",
+    "password": "Bibek12"	
+  
+}

@@ -49,6 +49,7 @@ export const UserProfile = () => {
     );
   };
 
+  console.log(form);
   const inputFields = [
     {
       label: "First Name",
@@ -93,7 +94,7 @@ export const UserProfile = () => {
       name: "Address",
       placeholder: "3 Sydney",
       type: "text",
-      value: form.address,
+      value: form.Address,
     },
     {
       label: "Current Password",
