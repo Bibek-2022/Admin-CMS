@@ -11,9 +11,13 @@ import {
   updateAdmin,
 } from "../models/adminUser/AdminModel.js";
 import { v4 as uuidv4 } from "uuid";
-import { sendAdminUserVerificationMail } from "../helpers/emailHelper.js";
+import {
+  emailPasswordResetOTP,
+  sendAdminUserVerificationMail,
+} from "../helpers/emailHelper.js";
 import router from "./adminRouter.js";
 import { randomNumberGenerator } from "../utils/randomGenerator.js";
+import { insertSession } from "../models/session/sessionModel.js";
 const route = express.Router();
 
 route.post("/", adminRegistrationValidation, async (req, res, next) => {
@@ -119,15 +123,25 @@ router.post("/otp-request", async (req, res, next) => {
     const { email } = req.body;
     if (email.length > 3 && email.length < 50) {
       //  find if user exist
-
-      // generate random 6 digit OTP
-
-      // send OTP to user email
-
-      //  respond to client
+      if (user?._id) {
+        // generate random 6 digit OTP
+        const otpLength = 6;
+        const otp = randomNumberGenerator(otpLength);
+        const obj = {
+          token: otp,
+          associate: email,
+          type: "updatePassword",
+        };
+        const result = await insertSession(obj);
+        if (result?._id) {
+          // send OTP to user email
+          emailPasswordResetOTP({ ...user, otp });
+          return;
+        }
+      }
 
       res.json({
-        status: "error",
+        status: "success",
         message:
           "if this email exist in our system, we will send you OTP, Please check your email and follow the instruction",
       });
