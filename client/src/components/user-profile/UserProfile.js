@@ -10,6 +10,7 @@ const initialState = {
   email: "",
   dob: "",
   address: "",
+  currentPassword: "",
 };
 export const UserProfile = () => {
   const [form, setForm] = useState(initialState);
@@ -75,6 +76,13 @@ export const UserProfile = () => {
       placeholder: "3 Sydney",
       type: "text",
       value: form.address,
+    },
+    {
+      label: "Current Password",
+      name: "currentPassword",
+      placeholder: "Current Password",
+      type: "password",
+      value: form.currentPassword,
     },
     {
       className: "btn btn-warning",
