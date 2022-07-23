@@ -76,5 +76,5 @@ export const updateAdminPassword = (obj) => {
 };
 
 export const updateAdminProfile = (obj) => {
-  return apiProcessor("patch", adminEP, obj);
+  return apiProcessor("put", adminEP, obj);
 };

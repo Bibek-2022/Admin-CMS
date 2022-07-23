@@ -82,6 +82,7 @@ router.patch("/", updatePasswordValidation, async (req, res, next) => {
           res.json({
             status: "success",
             message: "Password has been updated",
+            user,
           });
           // email notification
           profileUpdateNotification(user);

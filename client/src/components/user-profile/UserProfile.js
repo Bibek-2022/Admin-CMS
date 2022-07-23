@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
-
 import { CustomInput } from "../../custom-input/CustomInput";
+import { useDispatch, useSelector } from "react-redux";
+import { updateAdminProfileAction } from "../../pages/admin-profile/adminAction";
 
 const initialState = {
   fName: "",
@@ -9,11 +10,17 @@ const initialState = {
   phone: "",
   email: "",
   dob: "",
-  address: "",
+  Address: "",
   currentPassword: "",
 };
 export const UserProfile = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
+  const { user } = useSelector((state) => state.adminUser);
+
+  useEffect(() => {
+    setForm(user);
+  }, []);
 
   const hadleOnChange = (e) => {
     let { name, value } = e.target;
@@ -28,6 +35,18 @@ export const UserProfile = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(form);
+    const { fName, lName, email, phone, Address, currentPassword, dob } = form;
+    dispatch(
+      updateAdminProfileAction({
+        fName,
+        lName,
+        email,
+        phone,
+        Address,
+        currentPassword,
+        dob,
+      })
+    );
   };
 
   const inputFields = [
@@ -60,7 +79,6 @@ export const UserProfile = () => {
       name: "email",
       placeholder: "your@email.com",
       required: true,
-      disabled: true,
       type: "email",
       value: form.email,
     },
@@ -72,7 +90,7 @@ export const UserProfile = () => {
     },
     {
       label: "Address",
-      name: "address",
+      name: "Address",
       placeholder: "3 Sydney",
       type: "text",
       value: form.address,
@@ -83,6 +101,7 @@ export const UserProfile = () => {
       placeholder: "Current Password",
       type: "password",
       value: form.currentPassword,
+      required: true,
     },
     {
       className: "btn btn-warning",
