@@ -32,8 +32,8 @@ route.post("/", adminRegistrationValidation, async (req, res, next) => {
       });
     }
     res.json({
-      status: "success",
-      message: "Verification done",
+      status: "error",
+      message: "Unable to create user",
     });
   } catch (error) {
     if (error.message.includes("E11000 duplicate key error collection")) {

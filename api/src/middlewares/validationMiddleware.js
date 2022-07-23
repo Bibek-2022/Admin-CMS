@@ -88,12 +88,29 @@ export const updatePaymentMethodValidation = (req, res, next) => {
   joiValidator(schema, req, res, next);
 };
 
+//----------------------------------Admin Profile----------------------------------------
 //admin Validation
 export const updatePasswordValidation = (req, res, next) => {
   const schema = Joi.object({
     email: EMAIL,
     currentPassword: PASSWORD,
     password: PASSWORD,
+  });
+
+  joiValidator(schema, req, res, next);
+};
+
+// update
+
+export const updateAdminProfileValidation = (req, res, next) => {
+  const schema = Joi.object({
+    fName: FNAME,
+    lName: LNAME,
+    dob: DOB,
+    phone: PHONE,
+    email: EMAIL,
+    currentPassword: PASSWORD,
+    Address: ADDRESS,
   });
 
   joiValidator(schema, req, res, next);

@@ -22,7 +22,16 @@ export const RegistrationForm = () => {
     //   return toast.error("Passwords do not match");
     // }
     const { confirmPassword, ...rest } = form;
-    const { status, message } = await postAdminUser(rest);
+    console.log(rest);
+    //const response = updateAdminPassword({ ...rest, email: user.email });
+
+    //    toast.promise(response, { pending: "Please wait ..." });
+    // const { status, message } = await response;
+    // toast[status](message);
+    const response = postAdminUser(rest);
+    toast.promise(response, { pending: "Please wait ..." });
+    const { status, message } = await response;
+    console.log(status, message);
     toast[status](message);
   };
 

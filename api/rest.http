@@ -93,3 +93,22 @@ Content-Type: application/json
     "email": "bibek@gmail.com"
 
 }
+
+
+
+### update pw from profile
+
+PUT http://localhost:8000/api/v1/admin
+Content-Type: application/json
+
+{
+   "fName": "Shyam",
+    "lName": "Karki",
+    "dob": "2020-02-20",
+    "phone": "044444444",
+    "email": "shyam@gmail.com",
+    "Address": "Sydney",
+    "currentPassword": "asdfasdf234A"
+
+}
+

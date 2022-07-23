@@ -24,7 +24,6 @@ const apiProcessor = async (method, url, data) => {
 export const postAdminUser = (obj) => {
   return apiProcessor("post", loginRegisterEP, obj);
 };
-
 export const emailVerificationAdminUser = (obj) => {
   return apiProcessor("patch", loginRegisterEP, obj);
 };

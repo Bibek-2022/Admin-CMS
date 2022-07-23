@@ -39,7 +39,7 @@ app.use((error, req, res, next) => {
   console.log(error.message);
   const status = error.status || 404;
   res.status(status).json({
-    status: "error server",
+    status: "error",
     message: error.message,
   });
 });
