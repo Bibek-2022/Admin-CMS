@@ -4,6 +4,7 @@ const loginRegisterEP = rootUrl + "/register-login";
 const loginEP = loginRegisterEP + "/login";
 const catEP = rootUrl + "/category";
 const paymentMethodEP = rootUrl + "/payment-method";
+const adminEP = rootUrl + "/admin";
 const apiProcessor = async (method, url, data) => {
   try {
     const response = await axios({
@@ -67,4 +68,10 @@ export const deletePaymentMethod = (_id) => {
 
 export const updatePaymentMethod = (obj) => {
   return apiProcessor("put", paymentMethodEP, obj);
+};
+
+// ----------------------Admin User --------------------------------//
+
+export const updateAdminPassword = (obj) => {
+  return apiProcessor("patch", adminEP, obj);
 };

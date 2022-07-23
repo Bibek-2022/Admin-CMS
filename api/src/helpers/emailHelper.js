@@ -55,3 +55,33 @@ export const sendAdminUserVerificationMail = (userObj) => {
   };
   sendMail(emailInfo);
 };
+
+export const profileUpdateNotification = (userObj) => {
+  const emailInfo = {
+    from: '"ABC store 👻" <noreply@e-commerce.com>', // sender address
+    to: userObj.email, // list of receivers
+    subject: "Your profile has been updated", // Subject line
+    text: `Hi ${userObj.fName} We have just noticed your profile has updated. If this is not you, please contact us `, // plain text body
+    html: `
+    <p> Hello ${userObj.fName} </p>
+    <br/>
+    <br/>
+    <p>We have just noticed your profile has updated. If this is not you, please contact us  </p>
+    <br/>
+    <br/>
+    
+    
+    <br/>
+    <br/>
+    <>
+    ================
+    <br/>
+    XYZ company 
+    Customer Service Team
+    <p/>
+    
+    
+    `, // html body
+  };
+  sendMail(emailInfo);
+};

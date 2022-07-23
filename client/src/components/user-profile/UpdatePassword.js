@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Alert, Form } from "react-bootstrap";
+import { Alert, Form, Toast } from "react-bootstrap";
 
 import { CustomInput } from "../../custom-input/CustomInput";
-
+import { updateAdminPassword } from "../helpers/axiosHelper";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 const initialState = {
   currentPassword: "",
   password: "",
@@ -12,6 +14,7 @@ export const UpdatePassword = () => {
   const [form, setForm] = useState(initialState);
   const [error, setError] = useState("");
   const [disableBtn, setDisableBtn] = useState(true);
+  const { user } = useSelector((state) => state.adminUser);
 
   const hadleOnChage = (e) => {
     let { name, value } = e.target;
@@ -39,9 +42,15 @@ export const UpdatePassword = () => {
     }
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
+
+    const { confirmPassword, ...rest } = form;
+    const response = updateAdminPassword({ ...rest, email: user.email });
+
+    toast.promise(response, { pending: "Please wait ..." });
+    const { status, message } = await response;
+    toast[status](message);
   };
 
   const disabledBtn = () => {
