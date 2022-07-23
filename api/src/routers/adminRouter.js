@@ -41,6 +41,7 @@ router.put("/", updateAdminProfileValidation, async (req, res, next) => {
           res.json({
             status: "success",
             message: "User Information has been updated",
+            user,
           });
           // email notification
           profileUpdateNotification(user);

@@ -15,72 +15,77 @@ export const SideMenu = () => {
 
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch
-      </Button> */}
-
       <Offcanvas
         show={showSideMenu}
         onHide={() => dispatch(toggleShowSideMenu())}
       >
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>CMS Admin </Offcanvas.Title>
+          <Offcanvas.Title>CMS Admin Pannel</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <ListGroup variant="flush">
-            <ListGroup.Item className="fs-3">
+            <ListGroup.Item
+              onClick={() => dispatch(toggleShowSideMenu())}
+              className="fs-5"
+            >
               <Link to="/dashboard" className="nav-link">
-                <i class="fa-solid fa-gauge"></i>DashBoard
-              </Link>
-            </ListGroup.Item>
-            <ListGroup.Item className="fs-3">
-              <Link to="/categories" className="nav-link">
-                Categories
-              </Link>
-            </ListGroup.Item>
-            <ListGroup.Item className="fs-3">
-              <Link to="/products" className="nav-link">
-                Products
+                <i class="fa-solid fa-gauge"></i> Dashboard
               </Link>
             </ListGroup.Item>
             <ListGroup.Item
               onClick={() => dispatch(toggleShowSideMenu())}
-              className="fs-3"
+              className="fs-5"
+            >
+              <Link to="/categories" className="nav-link">
+                <i class="fa-solid fa-list"></i> Categories
+              </Link>
+            </ListGroup.Item>
+            <ListGroup.Item
+              onClick={() => dispatch(toggleShowSideMenu())}
+              className="fs-5"
+            >
+              <Link to="/products" className="nav-link">
+                <i class="fa-solid fa-boxes-stacked"></i> Products
+              </Link>
+            </ListGroup.Item>
+            <ListGroup.Item
+              onClick={() => dispatch(toggleShowSideMenu())}
+              className="fs-5"
             >
               <Link to="/paymentmethod" className="nav-link">
-                Payment Method
+                <i class="fa-solid fa-credit-card"></i> Payment Method
               </Link>
             </ListGroup.Item>
             <ListGroup.Item
               onClick={() => dispatch(toggleShowSideMenu())}
-              className="fs-3"
+              className="fs-5"
             >
               <Link to="/users" className="nav-link">
-                Users
+                <i class="fa-solid fa-users"></i> Users
               </Link>
             </ListGroup.Item>
             <ListGroup.Item
               onClick={() => dispatch(toggleShowSideMenu())}
-              className="fs-3"
+              className="fs-5"
             >
               <Link to="/orders" className="nav-link">
-                Orders
+                <i class="fa-solid fa-people-carry-box"></i> Orders
               </Link>
             </ListGroup.Item>
             <ListGroup.Item
               onClick={() => dispatch(toggleShowSideMenu())}
-              className="fs-3"
-            >
-              <Link to="/settings" className="nav-link">
-                Settings
-              </Link>
-            </ListGroup.Item>
-            <ListGroup.Item
-              onClick={() => dispatch(toggleShowSideMenu())}
-              className="fs-3"
+              className="fs-5"
             >
               <Link to="/adminprofile" className="nav-link">
-                Admin Profile
+                <i class="fa-solid fa-user"></i> Profile
+              </Link>
+            </ListGroup.Item>
+            <ListGroup.Item
+              onClick={() => dispatch(toggleShowSideMenu())}
+              className="fs-5"
+            >
+              <Link to="/settings" className="nav-link">
+                <i class="fa-solid fa-gears"></i> Settings
               </Link>
             </ListGroup.Item>
           </ListGroup>
