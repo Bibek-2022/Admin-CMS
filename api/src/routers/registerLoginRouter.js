@@ -118,24 +118,36 @@ route.post("/login", loginValidation, async (req, res, next) => {
 });
 
 // request OTP for password reset
-router.post("/otp-request", async (req, res, next) => {
+route.post("/otp-request", async (req, res, next) => {
   try {
     const { email } = req.body;
+    console.log(email);
     if (email.length > 3 && email.length < 50) {
       //  find if user exist
+      const user = await getOneAdmin({ email });
       if (user?._id) {
         // generate random 6 digit OTP
+
         const otpLength = 6;
         const otp = randomNumberGenerator(otpLength);
+        console.log(otp);
         const obj = {
           token: otp,
           associate: email,
           type: "updatePassword",
         };
+        console.log(obj);
         const result = await insertSession(obj);
+        console.log(result);
         if (result?._id) {
+          const mailInfo = {
+            fName: user.fName,
+            email: user.email,
+            otp,
+          };
+          console.log(mailInfo);
           // send OTP to user email
-          emailPasswordResetOTP({ ...user, otp });
+          emailPasswordResetOTP(mailInfo);
           return;
         }
       }
@@ -152,5 +164,23 @@ router.post("/otp-request", async (req, res, next) => {
 });
 
 // reset new password
+route.patch("/password", async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const { email, otp, password } = req.body;
+    // first check if the otp and email combination exist in the session table and delete it
+
+    // encrypt password
+    // update the password
+    // send email notification of the account update
+
+    res.json({
+      status: "error",
+      message: "Unable to reset your password",
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default route;

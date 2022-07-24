@@ -1,6 +1,6 @@
 export const randomNumberGenerator = (length) => {
-  letnumb = "";
-  for (let i = 0; i < array.length; i++) {
+  let numb = "";
+  for (let i = 0; i < length; i++) {
     numb += Math.floor(Math.random() * 10);
   }
   return numb;
