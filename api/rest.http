@@ -129,12 +129,12 @@ Content-Type: application/json
 
 ### verify OTP for password reset and reset password
 
-PATCH http://localhost:8000/api/v1/v1/register-login/password
+PATCH http://localhost:8000/api/v1/register-login/password
 Content-Type: application/json
 
 {
-    "email": "bibekheoes@gmail.com",
-    "otp": "123456",
-    "password": "Bibek12"	
+    "email": "bibekheroes@gmail.com",
+    "otp": "582401",
+    "password": "Bibek1"	
   
 }

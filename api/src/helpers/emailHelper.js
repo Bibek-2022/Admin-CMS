@@ -100,7 +100,7 @@ export const emailPasswordResetOTP = (obj) => {
     <br/>
     <br/>
     
-    <span style="color:red; font-size: 2rem; font-weight:bolder;">${otp}</span>
+    <span style="color:red; font-size: 2rem; font-weight:bolder;">${obj.otp}</span>
     <br/>
     <br/>
     <>

@@ -3,6 +3,7 @@ import { comparePassword, hashPassword } from "../helpers/bcryptHelper.js";
 import {
   adminRegistrationValidation,
   loginValidation,
+  resetPasswordValidation,
 } from "../middlewares/validationMiddleware.js";
 import {
   addVerificationCodeByUserId,
@@ -13,11 +14,15 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import {
   emailPasswordResetOTP,
+  profileUpdateNotification,
   sendAdminUserVerificationMail,
 } from "../helpers/emailHelper.js";
 import router from "./adminRouter.js";
 import { randomNumberGenerator } from "../utils/randomGenerator.js";
-import { insertSession } from "../models/session/sessionModel.js";
+import {
+  deleteSession,
+  insertSession,
+} from "../models/session/sessionModel.js";
 const route = express.Router();
 
 route.post("/", adminRegistrationValidation, async (req, res, next) => {
@@ -130,15 +135,15 @@ route.post("/otp-request", async (req, res, next) => {
 
         const otpLength = 6;
         const otp = randomNumberGenerator(otpLength);
-        console.log(otp);
+
         const obj = {
           token: otp,
           associate: email,
           type: "updatePassword",
         };
-        console.log(obj);
+
         const result = await insertSession(obj);
-        console.log(result);
+
         if (result?._id) {
           const mailInfo = {
             fName: user.fName,
@@ -164,15 +169,36 @@ route.post("/otp-request", async (req, res, next) => {
 });
 
 // reset new password
-route.patch("/password", async (req, res, next) => {
+route.patch("/password", resetPasswordValidation, async (req, res, next) => {
   try {
-    console.log(req.body);
     const { email, otp, password } = req.body;
+    const filter = {
+      token: otp,
+      associate: email,
+      type: "updatePassword",
+    };
+    console.log(filter);
     // first check if the otp and email combination exist in the session table and delete it
+    const isDeleted = await deleteSession(filter);
+    console.log(isDeleted);
+    if (isDeleted?._id) {
+      // encrypt password
+      // update the password
+      const obj = {
+        password: hashPassword(password),
+      };
 
-    // encrypt password
-    // update the password
-    // send email notification of the account update
+      const result = await updateAdmin({ email }, obj);
+      console.log(result);
+      if (result?._id) {
+        // send email notification of the account update
+        profileUpdateNotification(result);
+        return res.json({
+          status: "success",
+          message: "your password has been updated. YOu may login now",
+        });
+      }
+    }
 
     res.json({
       status: "error",
