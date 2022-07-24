@@ -5,6 +5,7 @@ const loginEP = loginRegisterEP + "/login";
 const catEP = rootUrl + "/category";
 const paymentMethodEP = rootUrl + "/payment-method";
 const adminEP = rootUrl + "/admin";
+
 const apiProcessor = async (method, url, data) => {
   try {
     const response = await axios({
@@ -77,4 +78,10 @@ export const updateAdminPassword = (obj) => {
 
 export const updateAdminProfile = (obj) => {
   return apiProcessor("put", adminEP, obj);
+};
+
+// ----------------Password reset
+
+export const requestOTP = (obj) => {
+  return apiProcessor("post", loginRegisterEP + "/otp-request", obj);
 };

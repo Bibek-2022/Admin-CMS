@@ -153,7 +153,6 @@ route.post("/otp-request", async (req, res, next) => {
           console.log(mailInfo);
           // send OTP to user email
           emailPasswordResetOTP(mailInfo);
-          return;
         }
       }
 

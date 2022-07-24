@@ -13,6 +13,7 @@ import User from "./pages/users/User";
 import Orders from "./pages/orders/Orders";
 import Settings from "./pages/settings/Settings";
 import AdminProfile from "./pages/admin-profile/AdminProfile";
+import { ResetPassword } from "./pages/resetPassword.js/ResetPassword";
 const App = () => {
   return (
     <div>
@@ -20,6 +21,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Registration />} />
+          <Route path="/password-reset" element={<ResetPassword />} />
           <Route path="/admin-verification" element={<EmailVerification />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/categories" element={<Categories />} />
