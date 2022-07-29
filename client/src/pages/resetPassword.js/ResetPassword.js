@@ -1,12 +1,15 @@
 import React, { useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { requestOTP } from "../../components/helpers/axiosHelper";
+import {
+  requestOTP,
+  resetPassword,
+} from "../../components/helpers/axiosHelper";
 import { CustomInput } from "../../custom-input/CustomInput";
 import { MainLayout } from "../../layout/MainLayout";
 
 export const ResetPassword = () => {
-  const [showForm, setShowForm] = useState("password"); // otp || password
+  const [showForm, setShowForm] = useState("otp"); // otp || password
   const [email, setEmail] = useState("");
 
   const [form, setForm] = useState({});
@@ -73,10 +76,12 @@ export const ResetPassword = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log(form);
+    const { confirmPassword, ...rest } = form;
+    const responsePromise = resetPassword({ email, ...rest });
 
-    // toast.promise(response, { pending: "Please wait ..." });
-    // const { status, message } = await response;
-    // toast[status](message);
+    toast.promise(responsePromise, { pending: "Please wait ..." });
+    const { status, message } = await responsePromise;
+    toast[status](message);
   };
 
   const otpRequest = {
