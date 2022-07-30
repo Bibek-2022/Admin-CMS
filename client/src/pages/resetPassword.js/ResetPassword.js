@@ -7,12 +7,16 @@ import {
 } from "../../components/helpers/axiosHelper";
 import { CustomInput } from "../../custom-input/CustomInput";
 import { MainLayout } from "../../layout/MainLayout";
-
+const initialState = {
+  otp: "",
+  password: "",
+  confirmPassword: "",
+};
 export const ResetPassword = () => {
   const [showForm, setShowForm] = useState("otp"); // otp || password
   const [email, setEmail] = useState("");
 
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState(initialState);
   const [error, setError] = useState("");
   const [disableBtn, setDisableBtn] = useState(true);
 
@@ -82,6 +86,7 @@ export const ResetPassword = () => {
     toast.promise(responsePromise, { pending: "Please wait ..." });
     const { status, message } = await responsePromise;
     toast[status](message);
+    status === "success" && setForm(initialState);
   };
 
   const otpRequest = {
@@ -99,6 +104,7 @@ export const ResetPassword = () => {
       placeholder: "123456",
       type: "number",
       required: true,
+      value: form.otp,
     },
     {
       label: "New Password",
@@ -106,6 +112,7 @@ export const ResetPassword = () => {
       placeholder: "******",
       required: true,
       type: "password",
+      value: form.password,
     },
     {
       label: "Confirm Password",
@@ -113,6 +120,7 @@ export const ResetPassword = () => {
       placeholder: "******",
       required: true,
       type: "password",
+      value: form.confirmPassword,
     },
   ];
   console.log(form);
@@ -172,6 +180,9 @@ export const ResetPassword = () => {
             >
               {" "}
               Request OTP again
+            </div>
+            <div className="text-end">
+              <a href="/">Login</a>Now
             </div>
           </Form>
         )}
