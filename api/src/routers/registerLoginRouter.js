@@ -23,6 +23,8 @@ import {
   deleteSession,
   insertSession,
 } from "../models/session/SessionModel.js";
+import { createJWTs } from "../helpers/jwtHelper.js";
+import { adminAuth } from "../middlewares/authMiddleware.js";
 const route = express.Router();
 
 route.post("/", adminRegistrationValidation, async (req, res, next) => {
@@ -94,28 +96,38 @@ route.patch("/", async (req, res, next) => {
 route.post("/login", loginValidation, async (req, res, next) => {
   try {
     const { email, password } = req.body;
+
     const result = await getOneAdmin({ email });
-    console.log(result);
+
     if (result?._id) {
-      // check pw
-      const isMatch = comparePassword(password, result.password);
+      // check if the passowd from databas end the password that client sent matches
+      const isMatched = comparePassword(password, result.password);
+
       result.password = undefined;
-      if (isMatch) {
-        return result.status === "active"
-          ? res.json({
-              status: "success",
-              message: "You are logged in",
-              result,
-            })
-          : res.json({
-              status: "error",
-              message: "Your account is not active",
-            });
+      result.refreshJWT = undefined;
+
+      if (isMatched) {
+        if (result.status === "active") {
+          const tokens = await createJWTs({ email });
+          res.json({
+            status: "success",
+            message: "Login success",
+            result,
+            ...tokens,
+          });
+        } else {
+          res.json({
+            status: "error",
+            message:
+              "Your account is inactive, Please check your email and follow the instruction to very the accout.",
+          });
+        }
       }
     }
+
     res.json({
       status: "error",
-      message: "Invalid email or password",
+      message: "Invalid login credientials",
     });
   } catch (error) {
     next(error);
