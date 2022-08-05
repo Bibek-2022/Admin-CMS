@@ -14,6 +14,8 @@ import Orders from "./pages/orders/Orders";
 import Settings from "./pages/settings/Settings";
 import AdminProfile from "./pages/admin-profile/AdminProfile";
 import { ResetPassword } from "./pages/resetPassword.js/ResetPassword";
+import { PrivateRouter } from "./components/private-route/PrivateRouter";
+
 const App = () => {
   return (
     <div>
@@ -21,19 +23,80 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Registration />} />
-          <Route path="/password-reset" element={<ResetPassword />} />
           <Route path="/admin-verification" element={<EmailVerification />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/products" element={<Product />} />
-          <Route path="/paymentmethod" element={<PaymentMethod />} />
-          <Route path="/users" element={<User />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/adminprofile" element={<AdminProfile />} />
+          <Route path="/password-reset" element={<ResetPassword />} />
+
+          {/* private routes TODO */}
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRouter>
+                <Dashboard />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="/categories"
+            element={
+              <PrivateRouter>
+                <Categories />
+              </PrivateRouter>
+            }
+          />
+
+          <Route
+            path="/products"
+            element={
+              <PrivateRouter>
+                <Product />
+              </PrivateRouter>
+            }
+          />
+
+          <Route
+            path="/payment-method"
+            element={
+              <PrivateRouter>
+                <PaymentMethod />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <PrivateRouter>
+                <User />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="/ordes"
+            element={
+              <PrivateRouter>
+                <Orders />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="/admin-profile"
+            element={
+              <PrivateRouter>
+                <Dashboard />
+              </PrivateRouter>
+            }
+          />
+
+          <Route
+            path="/settings"
+            element={
+              <PrivateRouter>
+                <Settings />
+              </PrivateRouter>
+            }
+          />
         </Routes>
       </BrowserRouter>
-      <ToastContainer theme="dark" />
+      <ToastContainer />
     </div>
   );
 };
