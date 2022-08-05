@@ -22,7 +22,7 @@ import { randomNumberGenerator } from "../utils/randomGenerator.js";
 import {
   deleteSession,
   insertSession,
-} from "../models/session/sessionModel.js";
+} from "../models/session/SessionModel.js";
 const route = express.Router();
 
 route.post("/", adminRegistrationValidation, async (req, res, next) => {

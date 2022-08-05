@@ -1,5 +1,6 @@
 import { verifyAccessJWT } from "../helpers/jwtHelper.js";
-import { getOneAdmin } from "../models/adminUser/AdminUserModel.js";
+import { getOneAdmin } from "../models/adminUser/AdminModel.js";
+
 import { getSession } from "../models/session/SessionModel.js";
 
 export const adminAuth = async (req, res, next) => {
@@ -11,7 +12,7 @@ export const adminAuth = async (req, res, next) => {
 
       if (decoded === "jwt expired") {
         return res.status(403).json({
-          status: "erroro",
+          status: "error",
           message: "jwt expired",
         });
       }

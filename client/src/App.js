@@ -54,7 +54,7 @@ const App = () => {
           />
 
           <Route
-            path="/payment-method"
+            path="/paymentmethod"
             element={
               <PrivateRouter>
                 <PaymentMethod />
@@ -62,7 +62,7 @@ const App = () => {
             }
           />
           <Route
-            path="/users"
+            path="/users  "
             element={
               <PrivateRouter>
                 <User />
@@ -70,7 +70,7 @@ const App = () => {
             }
           />
           <Route
-            path="/ordes"
+            path="/orders"
             element={
               <PrivateRouter>
                 <Orders />

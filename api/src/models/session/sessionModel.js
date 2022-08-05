@@ -1,4 +1,4 @@
-import SessionSchema from "./sessionSchema.js";
+import SessionSchema from "./SessionSchema.js";
 
 // create
 export const insertSession = (obj) => {
