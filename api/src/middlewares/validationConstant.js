@@ -14,6 +14,9 @@ export const ADDRESS = Joi.string().allow("").max(50);
 export const SHORTSTR = Joi.string().allow("").max(50);
 export const LONGSTR = Joi.string().allow("").max(5000);
 export const OTP = Joi.string().max(6);
+export const PRICE = Joi.number().max(10000);
+export const QTY = Joi.number().max(10000);
+export const DATE = Joi.date().allow();
 
 export const joiValidator = (schema, req, res, next) => {
   const { error } = schema.validate(req.body);

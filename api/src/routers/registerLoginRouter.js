@@ -27,39 +27,44 @@ import { createJWTs } from "../helpers/jwtHelper.js";
 import { adminAuth } from "../middlewares/authMiddleware.js";
 const route = express.Router();
 
-route.post("/", adminRegistrationValidation, async (req, res, next) => {
-  try {
-    req.body.password = hashPassword(req.body.password);
-    const verification = uuidv4();
-    req.body.verificationCode = verification;
+route.post(
+  "/",
+  adminAuth,
+  adminRegistrationValidation,
+  async (req, res, next) => {
+    try {
+      req.body.password = hashPassword(req.body.password);
+      const verification = uuidv4();
+      req.body.verificationCode = verification;
 
-    const result = await createNewAdmin(req.body);
-    console.log(result);
-
-    if (result?._id) {
+      const result = await createNewAdmin(req.body);
       console.log(result);
-      sendAdminUserVerificationMail(result);
-      return res.json({
-        status: "success",
-        message: "We have sent you verification",
-      });
-    }
-    res.json({
-      status: "error",
-      message: "Unable to create user",
-    });
-  } catch (error) {
-    if (error.message.includes("E11000 duplicate key error collection")) {
-      error.status = 200;
-      error.message = "email already exist";
-    }
-    next(error);
-  }
 
-  //   encrypt password
-  // call model to run save query
-  // unique url endpoint and sent that to customer
-});
+      if (result?._id) {
+        console.log(result);
+        sendAdminUserVerificationMail(result);
+        return res.json({
+          status: "success",
+          message: "We have sent you verification",
+        });
+      }
+      res.json({
+        status: "error",
+        message: "Unable to create user",
+      });
+    } catch (error) {
+      if (error.message.includes("E11000 duplicate key error collection")) {
+        error.status = 200;
+        error.message = "email already exist";
+      }
+      next(error);
+    }
+
+    //   encrypt password
+    // call model to run save query
+    // unique url endpoint and sent that to customer
+  }
+);
 
 route.patch("/", async (req, res, next) => {
   try {
@@ -109,14 +114,14 @@ route.post("/login", loginValidation, async (req, res, next) => {
       if (isMatched) {
         if (result.status === "active") {
           const tokens = await createJWTs({ email });
-          res.json({
+          return res.json({
             status: "success",
             message: "Login success",
             result,
             ...tokens,
           });
         } else {
-          res.json({
+          return res.json({
             status: "error",
             message:
               "Your account is inactive, Please check your email and follow the instruction to very the accout.",

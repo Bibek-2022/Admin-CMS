@@ -24,13 +24,13 @@ Content-Type: application/json
 
 ### Admin login
 
-POST http://localhost:8000/login
+POST http://localhost:8000/api/v1/register-login/login
 Content-Type: application/json
 
 {
     
     "email": "bibekheores@gmail.com",
-    "password": "Bibek"
+    "password": "Bibek123"
 }
 
 ### post category
@@ -137,4 +137,27 @@ Content-Type: application/json
     "otp": "582401",
     "password": "Bibek1"	
   
+}
+
+
+
+
+
+==========================Product API===========================================================
+
+### post product
+POST http://localhost:8000/api/v1/products
+Content-Type: application/json
+Authorization: 
+{
+   "status": "active",
+    "name": "Product1",
+    "description": "Product1",
+    "price": "100",
+    "category": "62c8c58bd9d7ef391158ce94",
+    "qty": "10",
+    "salePrice": "90",
+    "saleStartDate": "2020-02-20",
+    "saleEndDate": "2020-02-20",
+    "catID": "62c8c58bd9d7ef391158ce94"
 }

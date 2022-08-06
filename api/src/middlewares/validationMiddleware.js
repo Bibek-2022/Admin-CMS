@@ -12,6 +12,9 @@ import {
   STATUS,
   joiValidator,
   OTP,
+  PRICE,
+  QTY,
+  DATE,
 } from "./validationConstant.js";
 
 export const adminRegistrationValidation = (req, res, next) => {
@@ -122,6 +125,24 @@ export const resetPasswordValidation = (req, res, next) => {
     email: EMAIL,
     password: PASSWORD,
     otp: OTP.required(),
+  });
+
+  joiValidator(schema, req, res, next);
+};
+
+// ======================Product Validation
+
+export const newProductValidation = (req, res, next) => {
+  const schema = Joi.object({
+    status: SHORTSTR,
+    name: SHORTSTR.required(),
+    description: LONGSTR,
+    price: PRICE.required(),
+    qty: QTY,
+    salePrice: PRICE,
+    salesStartDate: DATE,
+    salesEndDate: DATE,
+    catID: SHORTSTR.required(),
   });
 
   joiValidator(schema, req, res, next);

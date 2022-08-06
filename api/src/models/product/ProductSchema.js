@@ -1,0 +1,76 @@
+import mongoose from "mongoose";
+
+const ProductSchema = new mongoose.Schema({
+  status: {
+    type: String,
+    required: true,
+    default: "inactive",
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  sku: {
+    type: String,
+    required: true,
+    unique: true,
+    index: 1,
+    maxlength: 20,
+    trim: true,
+  },
+  slug: {
+    type: String,
+    unique: true,
+    index: 1,
+    required: true,
+    trim: true,
+  },
+  description: {
+    type: String,
+    required: true,
+    maxlength: 5000,
+  },
+  catID: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "Category",
+    def: null,
+  },
+  qty: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  images: [
+    {
+      type: String,
+    },
+  ],
+  thumbnail: {
+    type: String,
+    default: "",
+  },
+  price: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  salePrice: {
+    type: String,
+    required: true,
+    default: "inactive",
+  },
+  saleStartDate: {
+    type: Date,
+    default: "null",
+  },
+  saleEndDate: {
+    type: Date,
+    default: "null",
+  },
+  ratings: {
+    type: Number,
+    max: 5,
+    default: 5,
+  },
+});
