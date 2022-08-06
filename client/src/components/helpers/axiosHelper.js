@@ -54,22 +54,40 @@ export const fetchCategory = (_id) => {
   const url = _id ? catEP + "/" + _id : catEP;
   const option = {
     method: "get",
-    url: loginEP,
+    url: url,
     privateAPI: true,
   };
   return apiProcessor(option);
 };
 
 export const postCategory = (obj) => {
-  return apiProcessor("post", catEP, obj);
+  const option = {
+    method: "post",
+    url: catEP,
+    obj,
+    privateAPI: true,
+  };
+  return apiProcessor(option);
 };
 
 export const deleteCategories = (obj) => {
-  return apiProcessor("delete", catEP, obj);
+  const option = {
+    method: "delete",
+    url: catEP,
+    obj,
+    privateAPI: true,
+  };
+  return apiProcessor(option);
 };
 
 export const updateCategory = (obj) => {
-  return apiProcessor("put", catEP, obj);
+  const option = {
+    method: "put",
+    url: catEP,
+    obj,
+    privateAPI: true,
+  };
+  return apiProcessor(option);
 };
 
 // ----------------------Payment Method API--------------------------------//
