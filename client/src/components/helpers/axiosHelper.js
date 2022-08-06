@@ -52,7 +52,12 @@ export const loginAdminUser = (obj) => {
 
 export const fetchCategory = (_id) => {
   const url = _id ? catEP + "/" + _id : catEP;
-  return apiProcessor("get", url);
+  const option = {
+    method: "get",
+    url: loginEP,
+    privateAPI: true,
+  };
+  return apiProcessor(option);
 };
 
 export const postCategory = (obj) => {

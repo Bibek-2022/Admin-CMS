@@ -2,19 +2,27 @@ import { loginAdminUser } from "../../components/helpers/axiosHelper";
 import { setUser } from "./loginRegisterSlice";
 import { toast } from "react-toastify";
 export const loginAction = (obj) => async (dispatch) => {
-  // show toastify spinner
-  // call axios helper to make a request to the server
   const resultPromise = loginAdminUser(obj);
 
   toast.promise(resultPromise, {
-    pending: "wait",
+    pending: "Please wait ....",
   });
 
-  const { status, message, result } = await resultPromise;
+  const { status, message, result, accessJWT, refreshJWT } =
+    await resultPromise;
 
   toast[status](message);
-  console.log(result);
-  // show toastify success or error
-  // if response comes success then call setUser and pass user data
-  status === "success" && dispatch(setUser(result));
+
+  if (status === "success") {
+    dispatch(setUser(result));
+
+    sessionStorage.setItem("accessJWT", accessJWT);
+    localStorage.setItem("refreshJWT", refreshJWT);
+  }
+};
+
+export const adminLogout = () => (dispatch) => {
+  sessionStorage.removeItem("accessJWT");
+  localStorage.removeItem("refreshJWT");
+  dispatch(setUser({}));
 };
