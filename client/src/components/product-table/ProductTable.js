@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row, Table } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductsAction } from "../../pages/products/productAction";
 import { CustomModal } from "../custom-modal/CustomModal";
 
 export const ProductTable = () => {
+  const dispatch = useDispatch();
+  const [displayProducts, setDisplayProduct] = useState([]);
+  const { products } = useSelector((state) => state.products);
+  useEffect(() => {
+    !displayProducts.length && dispatch(fetchProductsAction());
+    setDisplayProduct(products);
+  }, [products]);
+
   return (
     <Row className="mt-5">
       <Col>

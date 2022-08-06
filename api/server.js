@@ -39,7 +39,7 @@ app.get("/", (req, res) => {
 });
 
 app.use((error, req, res, next) => {
-  console.log(error.message);
+  console.log(error);
   const status = error.status || 404;
   res.status(status).json({
     status: "error",

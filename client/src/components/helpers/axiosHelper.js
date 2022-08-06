@@ -5,13 +5,20 @@ const loginEP = loginRegisterEP + "/login";
 const catEP = rootUrl + "/category";
 const paymentMethodEP = rootUrl + "/payment-method";
 const adminEP = rootUrl + "/admin";
+const productEP = rootUrl + "/products";
 
-const apiProcessor = async (method, url, data) => {
+const apiProcessor = async ({ method, url, data, privateAPI }) => {
   try {
+    const headers = privateAPI
+      ? {
+          Authorization: sessionStorage.getItem("accessJWT"),
+        }
+      : null;
     const response = await axios({
       method,
       url,
       data,
+      headers,
     });
     return response.data;
   } catch (error) {
@@ -30,7 +37,15 @@ export const emailVerificationAdminUser = (obj) => {
 };
 
 export const loginAdminUser = (obj) => {
-  return apiProcessor("post", loginEP, obj);
+  const option = {
+    method: "post",
+    url: loginEP,
+    data: obj,
+    privateAPI: false,
+  };
+
+  // return apiProcessor("post", loginEP, obj);
+  return apiProcessor(option);
 };
 
 // ----------------------Category API--------------------------------//
@@ -88,4 +103,17 @@ export const requestOTP = (obj) => {
 
 export const resetPassword = (obj) => {
   return apiProcessor("patch", loginRegisterEP + "/password", obj);
+};
+
+// -------------------Product----------------------//
+
+export const getProducts = () => {
+  const option = {
+    method: "get",
+    url: productEP,
+    data: null,
+    privateAPI: true,
+  };
+
+  return apiProcessor(option);
 };
