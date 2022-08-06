@@ -21,7 +21,7 @@ export const adminAuth = async (req, res, next) => {
         // is exist in the session table
         const existIbDB = await getSession({
           type: "jwt",
-          tokne: authorization,
+          token: authorization,
         });
 
         // get user info and do next

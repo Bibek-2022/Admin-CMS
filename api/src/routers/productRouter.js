@@ -1,6 +1,9 @@
 import express from "express";
 import slugify from "slugify";
-import { insertProduct } from "../models/product/ProductModel.js";
+import {
+  getMultipleProducts,
+  insertProduct,
+} from "../models/product/ProductModel.js";
 const route = express.Router();
 
 // create new product
@@ -32,4 +35,17 @@ route.post("/", async (req, res, next) => {
   }
 });
 
+route.get("/", async (req, res, next) => {
+  try {
+    const products = await getMultipleProducts();
+
+    res.json({
+      status: "success",
+      message: "Product List",
+      products,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 export default route;

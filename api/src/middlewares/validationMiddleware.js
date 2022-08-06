@@ -135,6 +135,7 @@ export const resetPasswordValidation = (req, res, next) => {
 export const newProductValidation = (req, res, next) => {
   const schema = Joi.object({
     status: SHORTSTR,
+    sku: SHORTSTR.required(),
     name: SHORTSTR.required(),
     description: LONGSTR,
     price: PRICE.required(),
@@ -142,7 +143,7 @@ export const newProductValidation = (req, res, next) => {
     salePrice: PRICE,
     salesStartDate: DATE,
     salesEndDate: DATE,
-    catID: SHORTSTR.required(),
+    catID: SHORTSTR,
   });
 
   joiValidator(schema, req, res, next);
