@@ -71,16 +71,16 @@ export const ProductForm = () => {
         <Form.Group className="mb-3">
           <Form.Check type="switch" label="status" name="status" />
         </Form.Group>
-        <Form.Group classsName="mb-3">
+        <Form.Group className="mb-3">
           <Form.Check type="switch" label="status" name="status" />
         </Form.Group>
 
         <Form.Select defaultValue="" name="parentCatId">
           <option value="">==Select Category==</option>
         </Form.Select>
-        {fields.map((field, i) => {
-          <CustomInput {...field} />;
-        })}
+        {fields.map((field, i) => (
+          <CustomInput {...field} />
+        ))}
         <Button variant="primary" type="submit">
           Submit Product
         </Button>

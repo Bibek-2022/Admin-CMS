@@ -33,7 +33,6 @@ const ProductSchema = new mongoose.Schema(
     },
     catID: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "Category",
       def: null,
     },

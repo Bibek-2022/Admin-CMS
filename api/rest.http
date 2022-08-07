@@ -141,6 +141,9 @@ Content-Type: application/json
 
 
 
+### admin request new accessJWT
+GET http://localhost:8000/api/v1/admin/accessjwt
+
 
 
 ==========================Product API===========================================================
@@ -148,7 +151,7 @@ Content-Type: application/json
 ### post product
 POST http://localhost:8000/api/v1/products
 Content-Type: application/json
-Authorization: 
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJpYmVraGVyb2VzQGdtYWlsLmNvbSIsImlhdCI6MTY1OTg0OTExMSwiZXhwIjoxNjU5ODUwMDExfQ.KnBCJJF4ZpUjbrLK8dldi0dbCh0JzobubEYZcoCtEwo
 {
    "status": "active",
     "name": "Product1",
@@ -159,5 +162,7 @@ Authorization:
     "salePrice": "90",
     "saleStartDate": "2020-02-20",
     "saleEndDate": "2020-02-20",
-    "catID": "62c8c58bd9d7ef391158ce94"
+    "catID": null
 }
+
+
