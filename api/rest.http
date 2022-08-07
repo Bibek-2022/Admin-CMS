@@ -152,10 +152,13 @@ GET http://localhost:8000/api/v1/admin/accessjwt
 POST http://localhost:8000/api/v1/products
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJpYmVraGVyb2VzQGdtYWlsLmNvbSIsImlhdCI6MTY1OTg0OTExMSwiZXhwIjoxNjU5ODUwMDExfQ.KnBCJJF4ZpUjbrLK8dldi0dbCh0JzobubEYZcoCtEwo
+
 {
    "status": "active",
     "name": "Product1",
+    "catID": "",
     "description": "Product1",
+    "sku": "Product1",
     "price": "100",
     "category": "62c8c58bd9d7ef391158ce94",
     "qty": "10",
