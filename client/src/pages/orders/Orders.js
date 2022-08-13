@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import AdminLayout from "../../layout/AdminLayout";
 
 const Orders = () => {
@@ -40,6 +41,9 @@ const Orders = () => {
             <td>Bla</td>
             <td>Bla</td>
             <td>Bla</td>
+            <td>
+              <Link to={`/orders/${2}`}></Link>
+            </td>
           </tr>
         </tbody>
       </Table>
