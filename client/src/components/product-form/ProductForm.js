@@ -3,6 +3,8 @@ import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { CustomInput } from "../../custom-input/CustomInput";
+import { getCategoriesAction } from "../../pages/Categories/catAction";
+import { fetchProductsAction } from "../../pages/products/productAction";
 
 const initialState = {
   status: "inactive",
@@ -57,7 +59,7 @@ export const ProductForm = () => {
     }
 
     images.length && [...images].map((img) => formData.append("images", img));
-    dispatch(postProductsAction(formData));
+    // dispatch(postProductsAction(formData));
   };
 
   const fields = [

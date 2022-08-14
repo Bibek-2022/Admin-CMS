@@ -14,28 +14,29 @@ export const getCategoriesAction = (_id) => async (dispatch) => {
 
 export const postCategoryAction = (obj) => async (dispatch) => {
   const responsePromise = postCategory(obj);
-  toast.promise(responsePromise, { pending: "Wait" });
-
+  toast.promise(responsePromise, { pending: "Please wait..." });
   const { status, message } = await responsePromise;
+
   toast[status](message);
+
   status === "success" && dispatch(getCategoriesAction());
 };
 
 export const deleteCategoryAction = (obj) => async (dispatch) => {
   const responsePromise = deleteCategories(obj);
-  toast.promise(responsePromise, { pending: "Wait" });
-
+  toast.promise(responsePromise, { pending: "Please wait..." });
   const { status, message } = await responsePromise;
+
   toast[status](message);
+
   status === "success" && dispatch(getCategoriesAction());
 };
 
 export const updateCategoryAction = (obj) => async (dispatch) => {
   const responsePromise = updateCategory(obj);
   toast.promise(responsePromise, { pending: "Please wait..." });
-  const { status, result } = await responsePromise;
-
-  toast[status](result);
+  const { status, message } = await responsePromise;
+  toast[status](message);
 
   status === "success" && dispatch(getCategoriesAction());
 };

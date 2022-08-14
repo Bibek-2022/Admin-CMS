@@ -14,7 +14,7 @@ const catSlice = createSlice({
   },
 });
 
-const { actions, reducer } = catSlice;
-export const { setCategories } = actions;
+const { reducer, actions } = catSlice;
 
+export const { setCategories } = actions;
 export default reducer;
