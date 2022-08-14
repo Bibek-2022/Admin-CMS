@@ -1,6 +1,7 @@
 import express from "express";
 import { comparePassword, hashPassword } from "../helpers/bcryptHelper.js";
 import { profileUpdateNotification } from "../helpers/emailHelper.js";
+import { signAccessJWT, verifyRefreshJWT } from "../helpers/jwtHelper.js";
 import { adminAuth } from "../middlewares/authMiddleware.js";
 import {
   updateAdminProfileValidation,
@@ -10,11 +11,16 @@ import { getOneAdmin, updateAdmin } from "../models/adminUser/AdminModel.js";
 
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
+// get admin info TODO
+router.get("/", adminAuth, (req, res, next) => {
   try {
+    const user = req.adminInfo;
+    user.password = undefined;
+    user.accessJWT = undefined;
     res.json({
       status: "success",
       message: "todo get method",
+      user,
     });
   } catch (error) {
     next(error);

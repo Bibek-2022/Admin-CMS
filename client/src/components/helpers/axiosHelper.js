@@ -8,11 +8,11 @@ const adminEP = rootUrl + "/admin";
 const productEP = rootUrl + "/products";
 const reviewEP = rootUrl + "/review";
 
-const apiProcessor = async ({ method, url, data, privateAPI }) => {
+const apiProcessor = async ({ method, url, data, privateAPI, token }) => {
   try {
     const headers = privateAPI
       ? {
-          Authorization: sessionStorage.getItem("accessJWT"),
+          Authorization: token || sessionStorage.getItem("accessJWT"),
         }
       : null;
     const response = await axios({
@@ -182,6 +182,40 @@ export const getProducts = () => {
   };
 
   return apiProcessor(option);
+};
+export const getsingleProduct = (_id) => {
+  const option = {
+    method: "get",
+    url: productEP + "/" + _id,
+    privateAPI: true,
+  };
+
+  return apiProcessor(option);
+};
+
+export const postProducts = (data) => {
+  const option = {
+    method: "post",
+    url: productEP,
+    privateAPI: true,
+    data,
+  };
+
+  return apiProcessor(option);
+};
+
+// ========= JWT Api
+export const requestNewAccessJWT = async () => {
+  const option = {
+    method: "get",
+    url: adminEP + "/accessjwt",
+    privateAPI: true,
+    token: localStorage.getItem("refreshJWT"),
+  };
+
+  const { accessJWT } = await apiProcessor(option);
+  sessionStorage.setItem("accessJWT", accessJWT);
+  return accessJWT;
 };
 
 // -------------------Review----------------------//
