@@ -10,12 +10,12 @@ export const ReviewTable = () => {
   useEffect(() => {
     dispatch(fetchReviewsAction());
     setDisplayReview(review);
-  }, [review, dispatch, displayReviews]);
+  }, []);
   console.log(displayReviews);
   return (
     <Row className="mt-5">
       <Col>
-        <p>Rating Found</p>
+        <p>{displayReviews.length} Rating Found</p>
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -28,17 +28,19 @@ export const ReviewTable = () => {
               <th>reviewed By ID</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>23</td>
-              <td>asdf</td>
-              <td>asdf</td>
-              <td>asdf</td>
-              <td>asdf</td>
-              <td>asdf</td>
-              <td>asdf</td>
-            </tr>
-          </tbody>
+          {review.map((x, i) => (
+            <tbody>
+              <tr>
+                <td>{x._id}</td>
+                <td>{x.reviews}</td>
+                <td>{x.productId}</td>
+                <td>{x.productName}</td>
+                <td>{x.rating}</td>
+                <td>{x.reviewedBy}</td>
+                <td>{x.reviewedById}</td>
+              </tr>
+            </tbody>
+          ))}
         </Table>
       </Col>
     </Row>
