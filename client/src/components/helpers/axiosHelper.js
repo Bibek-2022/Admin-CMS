@@ -23,9 +23,31 @@ const apiProcessor = async ({ method, url, data, privateAPI }) => {
     });
     return response.data;
   } catch (error) {
+    let message = error.message;
+
+    // 200, 401, 403
+
+    if (error.response && error.response.status === 401) {
+      sessionStorage.removeItem("accessJWT");
+      localStorage.removeItem("refreshJWT");
+
+      return { status: "error", message: "Unauthenticated" };
+    }
+
+    if (error.response && error.response.data) {
+      message = error.response.data.message;
+    }
+
+    if (message === "jwt expired") {
+      const token = await requestNewAccessJWT();
+
+      return apiProcessor({ method, url, data, privateAPI, token });
+    }
+
+    console.log(error);
     return {
       status: "error",
-      message: error.message,
+      message,
     };
   }
 };
@@ -111,14 +133,34 @@ export const updatePaymentMethod = (obj) => {
 
 // ----------------------Admin User --------------------------------//
 
-export const updateAdminPassword = (obj) => {
-  return apiProcessor("patch", adminEP, obj);
+export const updateAdminPassword = (data) => {
+  const option = {
+    method: "patch",
+    url: adminEP,
+    privateAPI: true,
+    data,
+  };
+  return apiProcessor(option);
 };
 
-export const updateAdminProfile = (obj) => {
-  return apiProcessor("put", adminEP, obj);
+export const updateAdminProfile = (data) => {
+  const option = {
+    method: "put",
+    url: adminEP,
+    privateAPI: true,
+    data,
+  };
+  return apiProcessor(option);
 };
+export const getAdminUser = () => {
+  const option = {
+    method: "get",
+    url: adminEP,
+    privateAPI: true,
+  };
 
+  return apiProcessor(option);
+};
 // ----------------Password reset
 
 export const requestOTP = (obj) => {

@@ -1,15 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
-
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { loginAction } from "../pages/login-registration/loginRegisterAction";
 const LoginForm = () => {
-  const [form, setForm] = useState({});
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [form, setForm] = useState({});
+
+  const { user } = useSelector((state) => state.adminUser);
+
+  const location = useLocation();
+  const origin =
+    (location.state && location.state.from && location.state.from.pathname) ||
+    "/dashboard";
+
+  useEffect(() => {
+    user._id && navigate(origin);
+  }, [user, navigate]);
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setForm({
+      ...form,
+      [name]: value,
+    });
   };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(form);
