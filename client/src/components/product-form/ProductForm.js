@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { CustomInput } from "../../custom-input/CustomInput";
 
 const initialState = {
@@ -16,6 +18,48 @@ const initialState = {
 };
 
 export const ProductForm = () => {
+  const dispatch = useDispatch();
+
+  const [form, setForm] = useState(initialState);
+  const [images, setImages] = useState([]);
+
+  const { categories } = useSelector((state) => state.categories);
+
+  useEffect(() => {
+    //fetch cat list if not in the state
+    !categories.length && dispatch(getCategoriesAction());
+  }, []);
+
+  const handleOnChange = (e) => {
+    let { checked, name, value, files } = e.target;
+
+    if (name === "images") {
+      return setImages(files);
+    }
+
+    if (name === "status") {
+      value = checked ? "active" : "inactive";
+    }
+
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    for (const key in form) {
+      formData.append(key, form[key]);
+    }
+
+    images.length && [...images].map((img) => formData.append("images", img));
+    dispatch(postProductsAction(formData));
+  };
+
   const fields = [
     {
       label: "Name",
@@ -79,21 +123,50 @@ export const ProductForm = () => {
       accept: "image/*",
     },
   ];
+
   return (
-    <div>
-      <Form>
+    <div className="py-3">
+      <div className="py-3">
+        <Link to="/products">
+          {" "}
+          <Button variant="secondary">&lt; Back </Button>{" "}
+        </Link>
+      </div>
+
+      <Form onSubmit={handleOnSubmit}>
         <Form.Group className="mb-3">
-          <Form.Check type="switch" label="status" name="status" />
+          <Form.Check
+            type="switch"
+            label="status"
+            name="status"
+            onChange={handleOnChange}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Select
+            defaultValue=""
+            name="catID"
+            required
+            onChange={handleOnChange}
+          >
+            <option value=""> -- select Category -- </option>
+            {categories.map(
+              (item) =>
+                item.parentCatId && (
+                  <option key={item._id} value={item._id}>
+                    {item.name}
+                  </option>
+                )
+            )}
+          </Form.Select>
         </Form.Group>
 
-        <Form.Select defaultValue="" name="parentCatId">
-          <option value="">==Select Category==</option>
-        </Form.Select>
         {fields.map((field, i) => (
-          <CustomInput {...field} />
+          <CustomInput {...field} onChange={handleOnChange} />
         ))}
+
         <Button variant="primary" type="submit">
-          Submit Product
+          Submit New Product
         </Button>
       </Form>
     </div>

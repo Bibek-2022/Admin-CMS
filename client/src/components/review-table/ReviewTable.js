@@ -10,7 +10,7 @@ export const ReviewTable = () => {
   useEffect(() => {
     dispatch(fetchReviewsAction());
     setDisplayReview(review);
-  }, []);
+  }, [dispatch]);
   console.log(displayReviews);
   return (
     <Row className="mt-5">
