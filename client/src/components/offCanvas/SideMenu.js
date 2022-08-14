@@ -84,6 +84,14 @@ export const SideMenu = () => {
               onClick={() => dispatch(toggleShowSideMenu())}
               className="fs-5"
             >
+              <Link to="/review" className="nav-link">
+                <i class="fa-solid fa-review"></i> Review
+              </Link>
+            </ListGroup.Item>
+            <ListGroup.Item
+              onClick={() => dispatch(toggleShowSideMenu())}
+              className="fs-5"
+            >
               <Link to="/settings" className="nav-link">
                 <i class="fa-solid fa-gears"></i> Settings
               </Link>

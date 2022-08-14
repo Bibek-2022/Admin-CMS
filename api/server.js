@@ -23,6 +23,7 @@ import categoriesRouter from "./src/routers/categoriesRouter.js";
 import paymentMethodRouter from "./src/routers/paymentMethodRouter.js";
 import productRouter from "./src/routers/productRouter.js";
 import adminRouter from "./src/routers/adminRouter.js";
+import reviewRouter from "./src/routers/reviewRouter.js";
 import { adminAuth } from "./src/middlewares/authMiddleware.js";
 
 // api
@@ -31,6 +32,7 @@ app.use("/api/v1/register-login", registerLoginRouter),
 app.use("/api/v1/payment-method", adminAuth, paymentMethodRouter);
 app.use("/api/v1/products", adminAuth, productRouter);
 app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/review", reviewRouter);
 
 app.get("/", (req, res) => {
   res.json({

@@ -169,3 +169,5 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJpYmVraGVyb2Vz
 }
 
 
+### GET Reeiw
+GET http://localhost:8000/api/v1/review
