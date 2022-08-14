@@ -16,6 +16,7 @@ import AdminProfile from "./pages/admin-profile/AdminProfile";
 import { ResetPassword } from "./pages/resetPassword.js/ResetPassword";
 import { PrivateRouter } from "./components/private-route/PrivateRouter";
 import { NewProduct } from "./pages/products/NewProduct";
+import { Review } from "./pages/review/Review";
 
 const App = () => {
   return (
@@ -90,6 +91,15 @@ const App = () => {
             element={
               <PrivateRouter>
                 <Dashboard />
+              </PrivateRouter>
+            }
+          />
+
+          <Route
+            path="/review"
+            element={
+              <PrivateRouter>
+                <Review />
               </PrivateRouter>
             }
           />
