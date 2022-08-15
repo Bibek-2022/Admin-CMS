@@ -133,6 +133,7 @@ export const resetPasswordValidation = (req, res, next) => {
 // ======================Product Validation
 
 export const newProductValidation = (req, res, next) => {
+  console.log(req.body, "========");
   req.body.salesStartDate =
     req.body.salesStartDate === "null" ? null : req.body.salesStartDate;
 
@@ -145,10 +146,10 @@ export const newProductValidation = (req, res, next) => {
     description: LONGSTR,
     price: PRICE.required(),
     qty: QTY,
-    salePrice: PRICE,
+    salesPrice: PRICE,
     salesStartDate: DATE,
     salesEndDate: DATE,
-    catID: SHORTSTR,
+    catID: SHORTSTR.allow("", null),
   });
 
   joiValidator(schema, req, res, next);
