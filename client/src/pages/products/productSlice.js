@@ -11,10 +11,13 @@ const productSlice = createSlice({
     setProducts: (state, { payload }) => {
       state.products = payload;
     },
+    setSelectedProduct: (state, { payload = {} }) => {
+      state.selectedProduct = payload;
+    },
   },
 });
 
 const { actions, reducer } = productSlice;
 
-export const { setProducts } = actions;
+export const { setProducts, setSelectedProduct } = actions;
 export default reducer;
