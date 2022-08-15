@@ -1,35 +1,65 @@
 import express from "express";
 import slugify from "slugify";
+import { newProductValidation } from "../middlewares/validationMiddleware.js";
 import {
   getMultipleProducts,
   insertProduct,
 } from "../models/product/ProductModel.js";
 const route = express.Router();
 
+import multer from "multer";
+
+const fileStoragePath = "public/img/products";
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    let error = null;
+    //validation test
+
+    cb(error, fileStoragePath);
+  },
+  filename: (req, file, cb) => {
+    const fullFileName = Date.now() + "-" + file.originalname;
+    cb(null, fullFileName);
+  },
+});
+
+const upload = multer({ storage });
 // create new product
 
-route.post("/", async (req, res, next) => {
+route.post("/", newProductValidation, async (req, res, next) => {
   try {
-    req.body.slug = slugify(req.body.name, {
+    //let's handle the post image upload
+    const files = req.files;
+
+    console.log(files);
+    const images = files.map((img) => img.path.substr(7));
+
+    //create slug
+    const slug = slugify(req.body.name, {
       lower: true,
       trim: true,
     });
-    const product = await insertProduct(req.body);
-    // create slug
+
+    req.body.slug = slug;
+    const product = await insertProduct({
+      ...req.body,
+      images,
+      thumbnail: images[0],
+    });
     product?._id
       ? res.json({
           status: "success",
-          message: "good your product is done and dusted",
+          message: "New product has been created",
         })
       : res.json({
           status: "error",
-          message: "Unable To Create New Product",
+          message: "Unable to create new product, try again later",
         });
   } catch (error) {
     if (error.message.includes("E11000 duplicate key error collection")) {
-      (error.status = 200),
-        (error.message =
-          "Product with the same name exist, change the product name and try again");
+      error.status = 200;
+      error.message =
+        "Product with the same name already exist, change the product name and try again later";
     }
     next(error);
   }
