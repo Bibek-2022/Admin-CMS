@@ -60,11 +60,11 @@ const ProductSchema = new mongoose.Schema(
       required: true,
       default: "inactive",
     },
-    saleStartDate: {
+    salesStartDate: {
       type: Date,
       default: "null",
     },
-    saleEndDate: {
+    salesEndDate: {
       type: Date,
       default: "null",
     },
