@@ -151,7 +151,7 @@ GET http://localhost:8000/api/v1/admin/accessjwt
 ### post product
 POST http://localhost:8000/api/v1/products
 Content-Type: application/json
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJpYmVraGVyb2VzQGdtYWlsLmNvbSIsImlhdCI6MTY2MDQ4MDE1NywiZXhwIjoxNjYzMDcyMTU3fQ.axCXv0p0GmQore6C7e0pTvS2qeofWSj_6kE55N_LqE0
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJpYmVraGVyb2VzQGdtYWlsLmNvbSIsImlhdCI6MTY2MDY0OTYzNCwiZXhwIjoxNjYwNjUwNTM0fQ.S9pbU4C2ZhEN0RCi56jTyclySUGZstehIrcd4MrVHJ4
 
 {
    "status": "active",
@@ -160,7 +160,7 @@ Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJpYmVraGVyb2VzQ
     "description": "Productss1",
     "sku": "Product1",
     "price": "100",
-    "category": "62c8c58bd9d7edf391158ce94",
+    "category": "",
     "qty": "10",
     "salePrice": "90",
     "saleStartDate": "",

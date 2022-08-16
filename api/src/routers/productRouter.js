@@ -70,13 +70,16 @@ route.post(
   }
 );
 
-route.get("/", async (req, res, next) => {
+route.get("/:_id?", async (req, res, next) => {
   try {
-    const products = await getMultipleProducts();
+    const { _id } = req.params;
+    const products = _id
+      ? await getProduct({ _id })
+      : await getMultipleProducts();
 
     res.json({
       status: "success",
-      message: "Product List",
+      message: "Products list",
       products,
     });
   } catch (error) {

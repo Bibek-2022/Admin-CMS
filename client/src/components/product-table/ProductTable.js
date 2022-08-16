@@ -20,7 +20,7 @@ export const ProductTable = () => {
     <div>
       <Row className="mt-5">
         <Col>
-          <p>{displayProducts.length} Producs found </p>
+          <p>{displayProducts.length} Products found </p>
 
           <Table striped bordered hover>
             <thead>
@@ -42,9 +42,10 @@ export const ProductTable = () => {
                   <tr key={item._id}>
                     <td>{i + 1}</td>
                     <td>
+                      {console.log(item.thumbnail)}
                       <img
                         src={API_ROOT_URL + item.thumbnail}
-                        width="150px"
+                        width="300px"
                         crossOrigin="anonymous"
                       />
                     </td>
@@ -52,7 +53,7 @@ export const ProductTable = () => {
                     <td>{item.name}</td>
                     <td>{item.qty}</td>
                     <td>${item.price}</td>
-                    <td>${item.salesPrice}</td>
+                    <td>${item.salePrice}</td>
                     <td>
                       {item.salesStartDate && item.salesStartDate.slice(0, 10)}{" "}
                       {" To "}

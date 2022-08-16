@@ -17,6 +17,7 @@ import { ResetPassword } from "./pages/resetPassword.js/ResetPassword";
 import { PrivateRouter } from "./components/private-route/PrivateRouter";
 import { NewProduct } from "./pages/products/NewProduct";
 import { Review } from "./pages/review/Review";
+import { EditProductForm } from "./components/product-form/EditProductForm";
 
 const App = () => {
   return (
@@ -61,7 +62,14 @@ const App = () => {
               </PrivateRouter>
             }
           />
-
+          <Route
+            path="/product/edit/:_id"
+            element={
+              <PrivateRouter>
+                <EditProductForm />
+              </PrivateRouter>
+            }
+          />
           <Route
             path="/paymentmethod"
             element={
