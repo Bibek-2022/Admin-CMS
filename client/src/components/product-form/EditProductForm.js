@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { CustomInput } from "../../custom-input/CustomInput";
 import { getCategoriesAction } from "../../pages/Categories/catAction";
-
 import {
   fetchProductsAction,
   postProductsAction,
@@ -26,8 +25,6 @@ const initialState = {
 export const EditProductForm = () => {
   const dispatch = useDispatch();
 
-  const { selectedProduct } = useSelector((state) => state.products);
-
   const [form, setForm] = useState(initialState);
   const [images, setImages] = useState([]);
 
@@ -36,8 +33,7 @@ export const EditProductForm = () => {
   useEffect(() => {
     //fetch cat list if not in the state
     !categories.length && dispatch(getCategoriesAction());
-    setForm(selectedProduct);
-  }, [selectedProduct]);
+  }, []);
 
   const handleOnChange = (e) => {
     let { checked, name, value, files } = e.target;
@@ -63,6 +59,7 @@ export const EditProductForm = () => {
 
     for (const key in form) {
       formData.append(key, form[key]);
+      console.log(key, form[key]);
     }
 
     images.length && [...images].map((img) => formData.append("images", img));
@@ -73,7 +70,6 @@ export const EditProductForm = () => {
     {
       label: "Name",
       name: "name",
-      value: form.name,
       type: "text",
       placeholder: "Enter product name",
       required: true,
@@ -81,16 +77,13 @@ export const EditProductForm = () => {
     {
       label: "SKU",
       name: "sku",
-      value: form.sku,
       type: "text",
       placeholder: "Unique product key",
       required: true,
-      disabled: true,
     },
     {
       label: "QTY",
       name: "qty",
-      value: form.qty,
       type: "number",
       placeholder: "50",
       required: true,
@@ -98,7 +91,6 @@ export const EditProductForm = () => {
     {
       label: "Price",
       name: "price",
-      value: form.price,
       type: "number",
       placeholder: "100",
       required: true,
@@ -106,26 +98,22 @@ export const EditProductForm = () => {
     {
       label: "Sales Price",
       name: "salesPrice",
-      value: form.salesPrice,
       type: "number",
       placeholder: "80",
     },
     {
       label: "Sales start date",
       name: "salesStartDate",
-      value: form.salesStartDate,
       type: "date",
     },
     {
       label: "Sales end date",
       name: "salesEndDate",
-      value: form.salesEndDate,
       type: "date",
     },
     {
       label: "Description",
       name: "description",
-      value: form.description,
       as: "textarea",
       placeholder: "Write product details",
       required: true,

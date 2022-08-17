@@ -45,7 +45,7 @@ export const ProductTable = () => {
                       {console.log(item.thumbnail)}
                       <img
                         src={API_ROOT_URL + item.thumbnail}
-                        width="300px"
+                        width="100px"
                         crossOrigin="anonymous"
                       />
                     </td>
@@ -60,7 +60,7 @@ export const ProductTable = () => {
                       {item.salesEndDate && item.salesEndDate.slice(0, 10)}
                     </td>
                     <td>
-                      <Link to={`/product/edit/${item._id}`}>
+                      <Link to={`/products/edit/${item._id}`}>
                         <Button variant="warning">Edit</Button>
                       </Link>
                     </td>

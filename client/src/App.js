@@ -63,7 +63,7 @@ const App = () => {
             }
           />
           <Route
-            path="/product/edit/:_id"
+            path="/products/edit/:_id"
             element={
               <PrivateRouter>
                 <EditProductForm />

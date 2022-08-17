@@ -3,10 +3,11 @@ import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
+
 const app = express();
 
 const PORT = process.env.PORT || 8000;
-
+import path from "path";
 // user middleware
 app.use(cors());
 app.use(helmet());
@@ -33,6 +34,10 @@ app.use("/api/v1/payment-method", adminAuth, paymentMethodRouter);
 app.use("/api/v1/products", adminAuth, productRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/review", reviewRouter);
+
+//server public folder as static content folder
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
   res.json({
