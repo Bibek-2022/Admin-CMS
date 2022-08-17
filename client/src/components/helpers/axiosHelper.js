@@ -115,22 +115,44 @@ export const updateCategory = (obj) => {
 
 // ----------------------Payment Method API--------------------------------//
 
+// ===== payment methods
 export const fetchPaymentMethods = () => {
-  return apiProcessor("get", paymentMethodEP);
+  const option = {
+    method: "get",
+    url: paymentMethodEP,
+    privateAPI: true,
+  };
+  return apiProcessor(option);
 };
 
-export const postPaymentMethod = (obj) => {
-  return apiProcessor("post", paymentMethodEP, obj);
+export const postPaymentMethod = (data) => {
+  const option = {
+    method: "post",
+    url: paymentMethodEP,
+    privateAPI: true,
+    data,
+  };
+  return apiProcessor(option);
 };
 
 export const deletePaymentMethod = (_id) => {
-  return apiProcessor("delete", paymentMethodEP + "/" + _id);
+  const option = {
+    method: "delete",
+    url: paymentMethodEP + "/" + _id,
+    privateAPI: true,
+  };
+  return apiProcessor(option);
 };
 
-export const updatePaymentMethod = (obj) => {
-  return apiProcessor("put", paymentMethodEP, obj);
+export const updatePaymentMethod = (data) => {
+  const option = {
+    method: "put",
+    url: paymentMethodEP,
+    privateAPI: true,
+    data,
+  };
+  return apiProcessor(option);
 };
-
 // ----------------------Admin User --------------------------------//
 
 export const updateAdminPassword = (data) => {
@@ -196,6 +218,17 @@ export const getsingleProduct = (_id) => {
 export const postProducts = (data) => {
   const option = {
     method: "post",
+    url: productEP,
+    privateAPI: true,
+    data,
+  };
+
+  return apiProcessor(option);
+};
+
+export const updateProduct = (data) => {
+  const option = {
+    method: "put",
     url: productEP,
     privateAPI: true,
     data,

@@ -128,7 +128,7 @@ export const EditProductForm = () => {
       rows: 5,
     },
     {
-      label: "Upoad Images",
+      label: "Upload Images",
       name: "images",
       type: "file",
       required: true,
