@@ -3,6 +3,7 @@ import slugify from "slugify";
 import { newProductValidation } from "../middlewares/validationMiddleware.js";
 import {
   getMultipleProducts,
+  getProducts,
   insertProduct,
 } from "../models/product/ProductModel.js";
 const route = express.Router();
@@ -74,7 +75,7 @@ route.get("/:_id?", async (req, res, next) => {
   try {
     const { _id } = req.params;
     const products = _id
-      ? await getProduct({ _id })
+      ? await getProducts({ _id })
       : await getMultipleProducts();
 
     res.json({

@@ -18,6 +18,7 @@ import { PrivateRouter } from "./components/private-route/PrivateRouter";
 import { NewProduct } from "./pages/products/NewProduct";
 import { Review } from "./pages/review/Review";
 import { EditProductForm } from "./components/product-form/EditProductForm";
+import EditProduct from "./pages/products/EditProduct";
 
 const App = () => {
   return (
@@ -66,7 +67,7 @@ const App = () => {
             path="/products/edit/:_id"
             element={
               <PrivateRouter>
-                <EditProductForm />
+                <EditProduct />
               </PrivateRouter>
             }
           />
