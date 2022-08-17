@@ -229,7 +229,7 @@ export const postProducts = (data) => {
 export const deleteProduct = (_id) => {
   const option = {
     method: "delete",
-    url: productEp + "/" + _id,
+    url: productEP + "/" + _id,
     privateAPI: true,
   };
 

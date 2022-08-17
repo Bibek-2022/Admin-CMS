@@ -3,6 +3,7 @@ import {
   getProducts,
   getsingleProduct,
   postProducts,
+  updateProduct,
 } from "../../components/helpers/axiosHelper";
 import { setProducts, setSelectedProduct } from "./productSlice";
 
@@ -11,6 +12,7 @@ export const fetchProductsAction = () => async (dispatch) => {
 
   status === "success" && dispatch(setProducts(products));
 };
+
 export const fetchSingleProductAction = (_id) => async (dispatch) => {
   const { status, message, products } = await getsingleProduct(_id);
 
@@ -28,7 +30,7 @@ export const postProductsAction = (data) => async (dispatch) => {
 
   toast[status](message);
 
-  // status === "success" && dispatch(fetchProductsAction());
+  status === "success" && dispatch(fetchProductsAction());
 };
 
 export const updateProductAction = (data, _id) => async (dispatch) => {

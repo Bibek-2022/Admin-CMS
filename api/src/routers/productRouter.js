@@ -2,9 +2,11 @@ import express from "express";
 import slugify from "slugify";
 import { newProductValidation } from "../middlewares/validationMiddleware.js";
 import {
+  deleteProduct,
   getMultipleProducts,
   getProducts,
   insertProduct,
+  updateProductById,
 } from "../models/product/ProductModel.js";
 const route = express.Router();
 
@@ -87,4 +89,53 @@ route.get("/:_id?", async (req, res, next) => {
     next(error);
   }
 });
+
+route.delete("/:_id", async (req, res, next) => {
+  try {
+    const { _id } = req.params;
+    const product = await deleteProduct({ _id });
+
+    product?._id
+      ? res.json({
+          status: "success",
+          message: "Product has been deleted successfully.",
+        })
+      : res.json({
+          status: "error",
+          message: "Error, Unable to delete the Product please try again later",
+        });
+  } catch (error) {
+    next(error);
+  }
+});
+
+route.put(
+  "/",
+  upload.array("newImages", 5),
+
+  async (req, res, next) => {
+    try {
+      const { _id, ...rest } = req.body;
+      const newImages = req.files;
+
+      const newImagePaths = newImages.map((img) => img.path.substr(7));
+      const oldImgLinks = rest.images.split(",");
+      rest.images = [...newImagePaths, ...oldImgLinks];
+
+      const product = await updateProductById(_id, rest);
+
+      product?._id
+        ? res.json({
+            status: "success",
+            message: "The product has been updated",
+          })
+        : res.json({
+            status: "error",
+            message: "Unable to update the prodcut and try agian later",
+          });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 export default route;
