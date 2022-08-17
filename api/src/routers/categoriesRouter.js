@@ -31,6 +31,7 @@ router.get("/:_id?", async (req, res, next) => {
 // add the catogery
 router.post("/", categoryValidation, async (req, res, next) => {
   try {
+    console.log(req.body);
     req.body.slug = slugify(req.body.name, {
       lower: true,
       trim: true,

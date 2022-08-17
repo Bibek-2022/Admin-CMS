@@ -83,31 +83,31 @@ export const fetchCategory = (_id) => {
   return apiProcessor(option);
 };
 
-export const postCategory = (obj) => {
+export const postCategory = (data) => {
   const option = {
     method: "post",
     url: catEP,
-    obj,
+    data,
     privateAPI: true,
   };
   return apiProcessor(option);
 };
 
-export const deleteCategories = (obj) => {
+export const deleteCategories = (data) => {
   const option = {
     method: "delete",
     url: catEP,
-    obj,
+    data,
     privateAPI: true,
   };
   return apiProcessor(option);
 };
 
-export const updateCategory = (obj) => {
+export const updateCategory = (data) => {
   const option = {
     method: "put",
     url: catEP,
-    obj,
+    data,
     privateAPI: true,
   };
   return apiProcessor(option);

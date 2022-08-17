@@ -131,10 +131,10 @@ export const CategoryTable = () => {
           </tbody>
         </Table>
 
-        {catToDelete.length && (
+        {catToDelete.length > 0 && (
           <Button variant="danger" onClick={handleOnDelete}>
             {" "}
-            Delete Selected {catToDelete.length}
+            Delete Selected {catToDelete.length} categories
           </Button>
         )}
       </Col>
