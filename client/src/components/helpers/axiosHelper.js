@@ -226,6 +226,16 @@ export const postProducts = (data) => {
   return apiProcessor(option);
 };
 
+export const deleteProduct = (_id) => {
+  const option = {
+    method: "delete",
+    url: productEp + "/" + _id,
+    privateAPI: true,
+  };
+
+  return apiProcessor(option);
+};
+
 export const updateProduct = (data) => {
   const option = {
     method: "put",

@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CustomInput } from "../../custom-input/CustomInput";
 import { getCategoriesAction } from "../../pages/Categories/catAction";
-import { postProductsAction } from "../../pages/products/productAction";
-
+import {
+  postProductsAction,
+  updateProductAction,
+} from "../../pages/products/productAction";
+import { toast } from "react-toastify";
+import { deleteProduct } from "../helpers/axiosHelper";
 const initialState = {
   status: "inactive",
   catID: null,
@@ -21,11 +25,13 @@ const initialState = {
 
 export const EditProductForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { selectedProduct } = useSelector((state) => state.products);
 
   const [form, setForm] = useState(initialState);
-  const [images, setImages] = useState([]);
+  const [newImages, setNewImages] = useState([]);
+  // const [imgToDelete, setImgToDelete] = useState([])
 
   const { categories } = useSelector((state) => state.categories);
 
@@ -38,8 +44,8 @@ export const EditProductForm = () => {
   const handleOnChange = (e) => {
     let { checked, name, value, files } = e.target;
 
-    if (name === "images") {
-      return setImages(files);
+    if (name === "newImages") {
+      return setNewImages(files);
     }
 
     if (name === "status") {
@@ -55,14 +61,51 @@ export const EditProductForm = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
+    const { createdAt, updatedAt, __v, slug, ratings, ...rest } = form;
+
     const formData = new FormData();
 
-    for (const key in form) {
+    for (const key in rest) {
       formData.append(key, form[key]);
     }
 
-    images.length && [...images].map((img) => formData.append("images", img));
-    dispatch(postProductsAction(formData));
+    newImages.length &&
+      [...newImages].map((img) => formData.append("newImages", img));
+    dispatch(updateProductAction(formData, form._id));
+  };
+
+  const handleOnDelete = async () => {
+    if (window.confirm("Are yo sure you want to delete this product?")) {
+      const { _id } = selectedProduct;
+      const responsePromise = deleteProduct(_id);
+
+      toast.promise(responsePromise, { pending: "Deleting please wait..." });
+      const { status, message } = await responsePromise;
+      toast[status](message);
+
+      status === "success" && navigate("/products");
+    }
+  };
+
+  const handleOnImageToDelete = (e) => {
+    const { checked, value } = e.target;
+    const { images } = form;
+
+    if (checked) {
+      //remove path
+
+      const filteredArg = images.filter((item) => item !== value);
+
+      setForm({
+        ...form,
+        images: filteredArg,
+      });
+    } else {
+      setForm({
+        ...form,
+        images: [...form.images, value],
+      });
+    }
   };
 
   const fields = [
@@ -128,15 +171,17 @@ export const EditProductForm = () => {
       rows: 5,
     },
     {
-      label: "Upload Images",
-      name: "images",
+      label: "Upoad Images",
+      name: "newImages",
       type: "file",
-      required: true,
+
       rows: 5,
       multiple: true,
       accept: "image/*",
     },
   ];
+
+  const imgList = selectedProduct.images || [];
 
   console.log(form);
   return (
@@ -154,13 +199,14 @@ export const EditProductForm = () => {
             type="switch"
             label="status"
             name="status"
+            checked={form.status === "active"}
             onChange={handleOnChange}
           />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Select
             defaultValue=""
-            name="catID"
+            name="catId"
             required
             onChange={handleOnChange}
           >
@@ -168,7 +214,11 @@ export const EditProductForm = () => {
             {categories.map(
               (item) =>
                 item.parentCatId && (
-                  <option key={item._id} value={item._id}>
+                  <option
+                    key={item._id}
+                    value={item._id}
+                    selected={item._id === selectedProduct.catId}
+                  >
                     {item.name}
                   </option>
                 )
@@ -180,10 +230,45 @@ export const EditProductForm = () => {
           <CustomInput {...field} onChange={handleOnChange} />
         ))}
 
+        {/* images section */}
+
+        <div className="d-flex my-5">
+          {imgList.map((imgLink, i) => (
+            <div key={i} className=" p-1">
+              <Form.Check
+                type="radio"
+                label="Use as thumbnail"
+                name="thumbnail"
+                value={imgLink}
+                onChange={handleOnChange}
+                checked={form.thumbnail === imgLink}
+              />
+              <img
+                src={process.env.REACT_APP_SERVER_ROOT_URL + imgLink}
+                crossOrigin="anonymous"
+                width="150px"
+                alt=""
+                className="img-thumbnail rounded"
+              />
+
+              <Form.Check
+                label="Delete"
+                value={imgLink}
+                onChange={handleOnImageToDelete}
+              />
+            </div>
+          ))}
+        </div>
+
         <Button variant="primary" type="submit">
-          Submit New Product
+          Update Product
         </Button>
       </Form>
+      <div className="text-end mt-5">
+        <Button variant="danger" onClick={handleOnDelete}>
+          Delete This Product
+        </Button>
+      </div>
     </div>
   );
 };

@@ -30,3 +30,17 @@ export const postProductsAction = (data) => async (dispatch) => {
 
   // status === "success" && dispatch(fetchProductsAction());
 };
+
+export const updateProductAction = (data, _id) => async (dispatch) => {
+  const responsePromise = updateProduct(data);
+
+  toast.promise(responsePromise, {
+    pending: "Please wait...",
+  });
+
+  const { status, message } = await responsePromise;
+
+  toast[status](message);
+
+  status === "success" && dispatch(fetchSingleProductAction(_id));
+};
