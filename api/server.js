@@ -25,7 +25,7 @@ import paymentMethodRouter from "./src/routers/paymentMethodRouter.js";
 import productRouter from "./src/routers/productRouter.js";
 import adminRouter from "./src/routers/adminRouter.js";
 import reviewRouter from "./src/routers/reviewRouter.js";
-import customerRouter from "./src/routers/customerRouter";
+import customerRouter from "./src/routers/customerRouter.js";
 import { adminAuth } from "./src/middlewares/authMiddleware.js";
 
 // api
