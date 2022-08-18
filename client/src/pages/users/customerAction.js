@@ -1,4 +1,4 @@
-import { getCustomers } from "../../helpers/axiosHelper";
+import { getCustomers } from "../../components/helpers/axiosHelper";
 import { setCustomers } from "./customerSlice";
 
 export const getCustomersAction = () => async (dispatch) => {

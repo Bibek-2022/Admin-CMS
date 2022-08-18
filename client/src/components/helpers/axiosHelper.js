@@ -6,6 +6,7 @@ const catEP = rootUrl + "/category";
 const paymentMethodEP = rootUrl + "/payment-method";
 const adminEP = rootUrl + "/admin";
 const productEP = rootUrl + "/products";
+const customerEp = rootUrl + "/customers";
 const reviewEP = rootUrl + "/review";
 
 const apiProcessor = async ({ method, url, data, privateAPI, token }) => {
@@ -268,6 +269,17 @@ export const getReview = () => {
     method: "get",
     url: reviewEP,
     data: null,
+    privateAPI: true,
+  };
+
+  return apiProcessor(option);
+};
+
+// ==== customer api
+export const getCustomers = async (_id) => {
+  const option = {
+    method: "get",
+    url: _id ? customerEp + "/" + _id : customerEp,
     privateAPI: true,
   };
 
