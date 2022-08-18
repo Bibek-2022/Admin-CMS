@@ -80,7 +80,7 @@ const App = () => {
             }
           />
           <Route
-            path="/users  "
+            path="/users"
             element={
               <PrivateRouter>
                 <User />
