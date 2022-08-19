@@ -1,5 +1,5 @@
+import { getOrders } from "../../components/helpers/axiosHelper";
 import { setOrders } from "./OrderSlice";
-import { setOrders } from "./orderSlice";
 
 export const getOrderAction = (_id) => async (dispatch) => {
   //call the api

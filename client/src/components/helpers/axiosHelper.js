@@ -8,6 +8,7 @@ const adminEP = rootUrl + "/admin";
 const productEP = rootUrl + "/products";
 const customerEp = rootUrl + "/customers";
 const reviewEP = rootUrl + "/review";
+const orderEP = rootUrl + "/orders";
 
 const apiProcessor = async ({ method, url, data, privateAPI, token }) => {
   try {
@@ -280,6 +281,17 @@ export const getCustomers = async (_id) => {
   const option = {
     method: "get",
     url: _id ? customerEp + "/" + _id : customerEp,
+    privateAPI: true,
+  };
+
+  return apiProcessor(option);
+};
+
+// ==== order api
+export const getOrders = async (_id) => {
+  const option = {
+    method: "get",
+    url: _id ? orderEP + "/" + _id : orderEP,
     privateAPI: true,
   };
 

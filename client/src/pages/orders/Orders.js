@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { CustomPagination } from "../../components/pagination/Pagination";
 import AdminLayout from "../../layout/AdminLayout";
 import { getOrderAction } from "./OrderAction";
 
