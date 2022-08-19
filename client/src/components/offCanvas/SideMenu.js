@@ -85,7 +85,7 @@ export const SideMenu = () => {
               className="fs-5"
             >
               <Link to="/review" className="nav-link">
-                <i class="fa-solid fa-review"></i> Review
+                <i class="fa-solid fa-star"></i> Review
               </Link>
             </ListGroup.Item>
             <ListGroup.Item
