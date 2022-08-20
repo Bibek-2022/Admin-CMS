@@ -76,7 +76,7 @@ export const SideMenu = () => {
               onClick={() => dispatch(toggleShowSideMenu())}
               className="fs-5"
             >
-              <Link to="/adminprofile" className="nav-link">
+              <Link to="/admin-profile" className="nav-link">
                 <i class="fa-solid fa-user"></i> Profile
               </Link>
             </ListGroup.Item>

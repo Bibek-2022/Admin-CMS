@@ -99,7 +99,7 @@ const App = () => {
             path="/admin-profile"
             element={
               <PrivateRouter>
-                <Dashboard />
+                <AdminProfile />
               </PrivateRouter>
             }
           />

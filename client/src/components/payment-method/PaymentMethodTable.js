@@ -47,7 +47,7 @@ export const PaymentMethodTable = ({ showForm, setShowForm }) => {
     <div className="table">
       {whichForm[showForm]}
 
-      <div>4 Payment Methods found!</div>
+      <div>{paymentMethods.length} Payment Methods found!</div>
       <Table striped bordered hover>
         <thead>
           <tr>
