@@ -27,44 +27,39 @@ import { createJWTs } from "../helpers/jwtHelper.js";
 import { adminAuth } from "../middlewares/authMiddleware.js";
 const route = express.Router();
 
-route.post(
-  "/",
-  adminAuth,
-  adminRegistrationValidation,
-  async (req, res, next) => {
-    try {
-      req.body.password = hashPassword(req.body.password);
-      const verification = uuidv4();
-      req.body.verificationCode = verification;
+route.post("/", adminRegistrationValidation, async (req, res, next) => {
+  try {
+    req.body.password = hashPassword(req.body.password);
+    const verification = uuidv4();
+    req.body.verificationCode = verification;
 
-      const result = await createNewAdmin(req.body);
+    const result = await createNewAdmin(req.body);
+    console.log(result);
+
+    if (result?._id) {
       console.log(result);
-
-      if (result?._id) {
-        console.log(result);
-        sendAdminUserVerificationMail(result);
-        return res.json({
-          status: "success",
-          message: "We have sent you verification",
-        });
-      }
-      res.json({
-        status: "error",
-        message: "Unable to create user",
+      sendAdminUserVerificationMail(result);
+      return res.json({
+        status: "success",
+        message: "We have sent you verification",
       });
-    } catch (error) {
-      if (error.message.includes("E11000 duplicate key error collection")) {
-        error.status = 200;
-        error.message = "email already exist";
-      }
-      next(error);
     }
-
-    //   encrypt password
-    // call model to run save query
-    // unique url endpoint and sent that to customer
+    res.json({
+      status: "error",
+      message: "Unable to create user",
+    });
+  } catch (error) {
+    if (error.message.includes("E11000 duplicate key error collection")) {
+      error.status = 200;
+      error.message = "email already exist";
+    }
+    next(error);
   }
-);
+
+  //   encrypt password
+  // call model to run save query
+  // unique url endpoint and sent that to customer
+});
 
 route.patch("/", async (req, res, next) => {
   try {

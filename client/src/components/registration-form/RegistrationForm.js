@@ -31,7 +31,6 @@ export const RegistrationForm = () => {
     const response = postAdminUser(rest);
     toast.promise(response, { pending: "Please wait ..." });
     const { status, message } = await response;
-    console.log(status, message);
     toast[status](message);
   };
 

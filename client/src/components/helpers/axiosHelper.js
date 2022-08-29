@@ -55,10 +55,28 @@ const apiProcessor = async ({ method, url, data, privateAPI, token }) => {
 };
 
 export const postAdminUser = (obj) => {
-  return apiProcessor("post", loginRegisterEP, obj);
+  const option = {
+    method: "post",
+    url: loginRegisterEP,
+    data: obj,
+    privateAPI: false,
+  };
+
+  // return apiProcessor("post", loginEP, obj);
+  return apiProcessor(option);
 };
 export const emailVerificationAdminUser = (obj) => {
-  return apiProcessor("patch", loginRegisterEP, obj);
+  // return apiProcessor("patch", loginRegisterEP, obj);
+
+  const option = {
+    method: "patch",
+    url: loginRegisterEP,
+    data: obj,
+    privateAPI: false,
+  };
+
+  // return apiProcessor("post", loginEP, obj);
+  return apiProcessor(option);
 };
 
 export const loginAdminUser = (obj) => {
