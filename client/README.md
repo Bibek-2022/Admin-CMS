@@ -10,3 +10,9 @@ This is the UI part and the api is available at repo ``
 2. run `npm i`
 3. run `cd <folder name>`
 4. run `npm start` for the local development.
+
+This file consists of several api pointing to admin api.
+Several feature are implemented:
+Reguster
+Login
+Authentication
