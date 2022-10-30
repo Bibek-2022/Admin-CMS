@@ -16,7 +16,7 @@ const Login = () => {
 
   return (
     <MainLayout>
-      <div className="reg-form d-flex justify-content-center">
+      <div className="reg-fo rm d-flex justify-content-center">
         <LoginForm />
       </div>
     </MainLayout>
